@@ -1,0 +1,41 @@
+1. ER schema 수정사항
+
+(1)manager entity에서 restaurant_id attribute삭제(foreign key로 relation schema에 표현)
+(2)manager entity에서 Birth attribute추가
+(3)reservation entity에서 customer_id attribute삭제(foreign key로 relation schema에 표현)
+(4)orders relationship에서 count attribute추가 (해당 주문에서 메뉴 당 개수를 저장하기 위하여 추가)
+(5)restaurant entity에서 operation time attribute삭제 -> start_time attribute, last_order_time attribute 생성
+(6)reservation entity에서 comment->review로 수정.
+
+
+2. ER to RELATION SCHEMA MAPPING
+
+(1) Customer, Manager, Category
+mapping regular entity type으로 relation을 생성하고 primary key 표시
+
+(2) Manages relationship
+binary 1:N 관계로 Manager의 primary key manager_id를 Restaurant에 foreign key rt_manager_id로 둔다.
+
+(3) Includes relationship
+binary 1:N 관계로 Category의 primary key category_id를 Restaurant에 foreign key rt_category_id로 둔다.
+
+(4) Serves relationship
+binary 1:N 관계로 Restaurant의 primary key restaurant_id를 Menu에 foreign key m_restaurant_id로 둔다.
+
+(5) Has relationship
+binary 1:N 관계로 Restaurant의 primary key restaurant_id를 Menu에 foreign key rv_restaurant_id로 둔다.
+
+(6) Reserves relationship
+binary 1:N 관계로 Customer의 primary key customer_id를 Menu에 foreign key rv_customer_id로 둔다.
+
+(7) Reservation entity의 composite attribute mapping
+composite attribute에 해당하는 star_rating, review, review_date를 각각 reservation relation에 mapping
+
+(7) Orders relationship
+binary N:M 관계로 Orders relation 생성. 
+Reservation의 primary key reservation_id를 foreign key o_reservation_id로 둔다.
+Menu의 primary key menu_id를 foreign key o_ menu_id로 둔다.
+orders의 attribute count를 추가한다. 여기에서 count는 메뉴의 개수이다.
+
+(8) Requires relationship
+binary 1:1 관계로 Reservation의 primary key reservation_id를 Payment에 foreign key p_reservation_id로 둔다.
