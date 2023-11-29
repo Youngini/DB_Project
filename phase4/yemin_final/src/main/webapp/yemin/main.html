@@ -14,10 +14,110 @@
             top: 10px;
             right: 10px;
         }
+
+        .search-box {
+            position: fixed;
+            top: 10px;
+            right: 1600px;
+            height: 30px;
+            width: 350px;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 10px;
+            right: 1980px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: dodgerblue;
+        }
+
+        .reservation {
+            position: fixed;
+            top: 50px;
+            right: 1600px;
+        }
+
+        .search-button {
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: dodgerblue;
+        }
+
+        /* 수정된 부분 시작 */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .card:hover {
+            cursor: pointer;
+        }
+
+        .line {
+            height: 2px;
+            background-color: navy;
+            margin-top: 400px;
+        }
+        /* 수정된 부분 끝 */
     </style>
 </head>
 <body>
 <h1>예약의 민족</h1>
+<a class="home-button" href="home.html">홈</a>
+<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
 <a class="login-button" href="login.html">로그인</a>
+
+<div class="reservation">
+    <input type="date">
+    <input type="time">
+    <input type="number" min="1" max="100" placeholder="인원 수">
+    <button class="search-button" onclick="location.href='search.html'">검색</button>
+</div>
+
+<!-- 추가된 부분 시작 -->
+<div class="line"></div>
+<!-- 추가된 부분 끝 -->
+
+<!-- 수정된 부분 시작 -->
+<div class="card-container">
+    <a class="card" href="#한식">한식</a>
+    <a class="card" href="#일식">일식</a>
+    <a class="card" href="#양식">양식</a>
+    <a class="card" href="#중식">중식</a>
+</div>
+<!-- 수정된 부분 끝 -->
 </body>
 </html>
