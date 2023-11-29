@@ -60,9 +60,6 @@
   </style>
   <script>
     window.onload = function() {
-      var rest_name = sessionStorage.getItem('rest_name');
-      document.getElementById('rest_name').innerHTML = rest_name;
-
       document.getElementById('logout').addEventListener('click', function() {
         location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
       });
@@ -74,6 +71,28 @@
       document.getElementById('home').addEventListener('click', function() {
         location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
       });
+
+      document.getElementById('changeMyInfo').addEventListener('click', function() {
+        location.href = 'adminChangeMyInfo.html';
+      });
+
+      document.getElementById('changePw').addEventListener('click', function() {
+        location.href = 'adminChangePw.html';
+      });
+    }
+  </script>
+  <script>
+    function changePassword() {
+      var enteredPassword = document.getElementById('adminPwCh').value;
+      var newPassword = document.getElementById('adminPwAfter').value;
+      var adminPw = sessionStorage.getItem('adminPw');
+
+      if (enteredPassword !== adminPw) {
+        alert("비밀번호가 다릅니다!");
+      } else {
+        // 비밀번호가 일치하는 경우, 바꿀 비밀번호를 adminChangePw.jsp로 전달
+        location.href = 'adminChangePw.jsp?newPassword=' + newPassword;
+      }
     }
   </script>
 </head>
@@ -85,20 +104,15 @@
 </div>
 <div class="container">
   <div class="sidebar">
-    <button id="addStore">가게 추가</button> <!-- 버튼에 id 추가 -->
-    <div class="sidebar">
-      <div class="dropdown">
-        <button>정보수정</button>
-        <div class="dropdown-content">
-          <a href="adminPwCheck1.html">내정보수정</a>
-          <a href="adminPwCheck2.html">비밀번호 변경</a>
-        </div>
-      </div>
-    </div>
+    <button id="addStore">가게 추가</button>
+    <button id="changeMyInfo">내 정보 수정</button>
+    <button id="changePw">비밀번호 변경</button><!-- 버튼에 id 추가 -->
   </div>
   <div class="card">
-    <div class="content">
-      <h2 id="rest_name"></h2>
+    <div>
+      현재 비밀번호 <input type="password" id="adminPwCh" name="adminPwCh" placeholder="현재 비밀번호">
+      바꿀 비밀번호 <input type="password" id="adminPwAfter" name="adminPwAfter" placeholder="바꿀 비밀번호">
+      <button id="submit" onclick="changePassword()">확인</button>
     </div>
   </div>
 </div>

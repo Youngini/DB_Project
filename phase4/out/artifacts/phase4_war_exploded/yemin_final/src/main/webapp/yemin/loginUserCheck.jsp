@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+		 pageEncoding="EUC-KR"%>
 <%@ page language="java" import="java.text.*,java.sql.*" %>
 <%@ page language="java" import="java.util.Scanner" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>예약의 민족</title>
+	<meta charset="EUC-KR">
+	<title>예약의 민족</title>
 </head>
 <body>
 <%
@@ -45,22 +45,23 @@
 
 
 	try {
-			sql = "SELECT c.customer_id\n" +
-					"FROM customer c\n" +
-					"WHERE login_id = '" + userId + "'\n" +
-					"AND login_pw='" + userPw + "'";
-			rs = stmt.executeQuery(sql);
-			if(!rs.next()) {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('로그인 실패!');");
-				out.println("location='loginUser.html';");
-				out.println("</script>");
+		sql = "SELECT c.customer_id\n" +
+				"FROM customer c\n" +
+				"WHERE login_id = '" + userId + "'\n" +
+				"AND login_pw='" + userPw + "'";
+		rs = stmt.executeQuery(sql);
+		if(!rs.next()) {
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('로그인 실패!');");
+			out.println("location='loginUser.html';");
+			out.println("</script>");
 		}
 		else
 		{
-			String sent = "로그인 성공!";
-			out.println(sent);
-			response.sendRedirect("main.html");
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('로그인 성공');");
+			out.println("window.location.replace('main.html');");
+			out.println("</script>");
 		}
 
 	} catch (SQLException e) {

@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>예약의 민족</title>
-<style>
-  h1 {
-    text-align: center;
-    color: navy;
-  }
-  
-  .login-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-  }
-</style>
+    <meta charset="EUC-KR">
+    <title>예약의 민족</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: navy;
+        }
+
+        .login-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        .search-box {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 10px;
+            right: 180px;
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: dodgerblue;
+        }
+    </style>
 </head>
 <body>
 <h1>예약의 민족</h1>
+<a class="home-button" href="home.html">홈</a>
+<input class="search-box" type="text" placeholder="검색">
 <a class="login-button" href="login.html">로그인</a>
 </body>
 </html>
