@@ -52,13 +52,13 @@
 			rs = stmt.executeQuery(sql);
 			if(!rs.next()) {
 				out.println("<script type=\"text/javascript\">");
-				out.println("alert('로그인 실패!a!');");
+				out.println("alert('로그인 실패!!');");
 				out.println("location='loginUser.html';");
 				out.println("</script>");
 			}
 			else
 			{
-				String sent = "로그인 성공!";
+				String sent = "로그인 성공!!";
 				out.println(sent);
 				//
 				out.println("<script type=\"text/javascript\">");
