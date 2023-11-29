@@ -52,16 +52,21 @@
 			rs = stmt.executeQuery(sql);
 			if(!rs.next()) {
 				out.println("<script type=\"text/javascript\">");
-				out.println("alert('로그인 실패!');");
+				out.println("alert('로그인 실패!a!');");
 				out.println("location='loginUser.html';");
 				out.println("</script>");
-		}
-		else
-		{
-			String sent = "로그인 성공!";
-			out.println(sent);
-			response.sendRedirect("main.html");
-		}
+			}
+			else
+			{
+				String sent = "로그인 성공!";
+				out.println(sent);
+				//
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('로그인 성공');");
+				out.println("window.location.replace('main.html');");
+				out.println("</script>");
+				//response.sendRedirect("main.html");
+			}
 
 	} catch (SQLException e) {
 		e.printStackTrace();
