@@ -18,14 +18,16 @@
         .search-box {
             position: fixed;
             top: 10px;
-            right: 80px;
+            right: 1600px;
+            height: 30px;
+            width: 350px;
         }
 
         .home-button {
             position: fixed;
             top: 10px;
-            right: 180px;
-            padding: 10px;
+            right: 1980px;
+            padding: 20px;
             background-color: lightblue;
             border: none;
             border-radius: 5px;
@@ -36,12 +38,72 @@
         .home-button:hover {
             background-color: dodgerblue;
         }
+
+        .reservation {
+            position: fixed;
+            top: 50px;
+            right: 1600px;
+        }
+
+        .search-button {
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: dodgerblue;
+        }
+
+        /* 수정된 부분 시작 */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+        /* 수정된 부분 끝 */
     </style>
 </head>
 <body>
 <h1>예약의 민족</h1>
 <a class="home-button" href="home.html">홈</a>
-<input class="search-box" type="text" placeholder="검색">
+<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
 <a class="login-button" href="login.html">로그인</a>
+
+<div class="reservation">
+    <input type="date">
+    <input type="time">
+    <input type="number" min="1" max="100" placeholder="인원 수">
+    <button class="search-button" onclick="location.href='search.html'">검색</button>
+</div>
+
+<!-- 수정된 부분 시작 -->
+<div class="card-container">
+    <div class="card">한식</div>
+    <div class="card">일식</div>
+    <div class="card">양식</div>
+    <div class="card">중식</div>
+</div>
+<!-- 수정된 부분 끝 -->
 </body>
 </html>
