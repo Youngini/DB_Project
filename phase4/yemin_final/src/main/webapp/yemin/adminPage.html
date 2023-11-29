@@ -61,6 +61,10 @@
   <script>
     window.onload = function() {
       var rest_name = sessionStorage.getItem('rest_name');
+      var r_id = sessionStorage.getItem('r_id');
+      console.log(r_id);
+
+      //document.getElementById('r_id').innerHTML = r_id;
       document.getElementById('rest_name').innerHTML = rest_name;
 
       document.getElementById('logout').addEventListener('click', function() {
@@ -100,6 +104,7 @@
   <div class="card">
     <div class="content">
       <h2 id="rest_name"></h2>
+      <button>가게 상세 정보</button>
     </div>
   </div>
 </div>
