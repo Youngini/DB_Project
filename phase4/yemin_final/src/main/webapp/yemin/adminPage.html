@@ -1,72 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>예약의 민족</title>
-<style>
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #f0f0f0;
-}
-.container {
-  display: flex;
-  flex-grow: 1;
-}
-.sidebar {
-  width: 200px;
-  height: 100vh;
-  background-color: #f0f0f0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.card {
-  flex-grow: 1;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.card .content {
-  border: 1px solid #ddd;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-}
-</style>
-<script>
-window.onload = function() {
-  var rest_name = sessionStorage.getItem('rest_name');
-  document.getElementById('rest_name').innerHTML = rest_name;
+  <meta charset="EUC-KR">
+  <title>예약의 민족</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+    }
+    .sidebar {
+      width: 200px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card .content {
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      min-width: 200px; /* 사이드바의 너비와 동일하게 변경 */
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {background-color: #f1f1f1}
+    .dropdown:hover .dropdown-content {display: block;}
 
-  document.getElementById('logout').addEventListener('click', function() {
-    location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
-  });
+  </style>
+  <script>
+    window.onload = function() {
+      var rest_name = sessionStorage.getItem('rest_name');
+      document.getElementById('rest_name').innerHTML = rest_name;
 
-  document.getElementById('addStore').addEventListener('click', function() {
-    location.href = 'adminRestAdd.html'; // '가게 추가' 버튼 클릭 시 'adminRestAdd.html'로 이동
-  });
-}
-</script>
+      document.getElementById('logout').addEventListener('click', function() {
+        location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
+      });
+
+      document.getElementById('addStore').addEventListener('click', function() {
+        location.href = 'adminRestAdd.html'; // '가게 추가' 버튼 클릭 시 'adminRestAdd.html'로 이동
+      });
+
+      document.getElementById('home').addEventListener('click', function() {
+        location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
+      });
+    }
+  </script>
 </head>
 <body>
 <div class="navbar">
-  <button id="logout">로그아웃</button>
+  <button id="home">Home</button> <!-- Home 버튼 추가 -->
   <div>김현수님 안녕하세요?</div>
+  <button id="logout">로그아웃</button>
 </div>
 <div class="container">
   <div class="sidebar">
     <button id="addStore">가게 추가</button> <!-- 버튼에 id 추가 -->
-    <button>내정보수정</button>
+    <div class="sidebar">
+      <div class="dropdown">
+        <button>정보수정</button>
+        <div class="dropdown-content">
+          <a href="adminPwCheck1.html">내정보수정</a>
+          <a href="adminPwCheck2.html">비밀번호 변경</a>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="card">
     <div class="content">

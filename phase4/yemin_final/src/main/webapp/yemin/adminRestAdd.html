@@ -1,95 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¿¹¾àÀÇ ¹ÎÁ·</title>
-<style>
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #f0f0f0;
-}
-.container {
-  display: flex;
-  flex-grow: 1;
-}
-.sidebar {
-  width: 200px;
-  height: 100vh;
-  background-color: #f0f0f0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.card {
-  flex-grow: 3;
-  padding: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.card .content {
-  border: 1px solid #ddd;
-  padding: 100px;
-  width: 500px;
-  text-align: center;
-  display: flex;
-  flex-direction: column; /* ¿ä¼ÒµéÀ» ¼¼·Î·Î ¹èÄ¡ */
-  gap: 20px; /* ¿ä¼Òµé »çÀÌÀÇ °£°İ ¼³Á¤ */
-}
-</style>
-<script>
-window.onload = function() {
-  document.getElementById('logout').addEventListener('click', function() {
-    location.href = 'main.html'; // ·Î±×¾Æ¿ô ¹öÆ° Å¬¸¯ ½Ã 'main.html'·Î ÀÌµ¿
-  });
+  <meta charset="UTF-8">
+  <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+    }
+    .sidebar {
+      width: 200px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      flex-grow: 3;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card .content {
+      border: 1px solid #ddd;
+      padding: 100px;
+      width: 500px;
+      text-align: center;
+      display: flex;
+      flex-direction: column; /* ìš”ì†Œë“¤ì„ ì„¸ë¡œë¡œ ë°°ì¹˜ */
+      gap: 20px; /* ìš”ì†Œë“¤ ì‚¬ì´ì˜ ê°„ê²© ì„¤ì • */
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      document.getElementById('logout').addEventListener('click', function() {
+        location.href = 'main.html'; // ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ í´ë¦­ ì‹œ 'main.html'ë¡œ ì´ë™
+      });
 
-  document.getElementById('addStore').addEventListener('click', function() {
-    location.href = 'adminRestAdd.html'; // '°¡°Ô Ãß°¡' ¹öÆ° Å¬¸¯ ½Ã 'adminRestAdd.html'·Î ÀÌµ¿
-  });
-}
-</script>
+      document.getElementById('addStore').addEventListener('click', function() {
+        location.href = 'adminRestAdd.html'; // 'ê°€ê²Œ ì¶”ê°€' ë²„íŠ¼ í´ë¦­ ì‹œ 'adminRestAdd.html'ë¡œ ì´ë™
+      });
+      document.getElementById('home').addEventListener('click', function() {
+        location.href = 'adminPage.html'; // 'Home' ë²„íŠ¼ í´ë¦­ ì‹œ 'adminPage.html'ë¡œ ì´ë™
+      });
+    }
+  </script>
 </head>
 <body>
 <div class="navbar">
-  <button id="logout">·Î±×¾Æ¿ô</button>
-  <div>±èÇö¼ö´Ô ¾È³çÇÏ¼¼¿ä?</div>
+
+  <button id="home">Home</button> <!-- Home ë²„íŠ¼ ì¶”ê°€ -->
+  <div>ê¹€í˜„ìˆ˜ë‹˜ ì•ˆë…•í•˜ì„¸ìš”?</div>
+  <button id="logout">ë¡œê·¸ì•„ì›ƒ</button>
 </div>
 <div class="container">
   <div class="sidebar">
-    <button id="addStore">°¡°Ô Ãß°¡</button> <!-- ¹öÆ°¿¡ id Ãß°¡ -->
-    <button>³»Á¤º¸¼öÁ¤</button>
+    <button id="addStore">ê°€ê²Œ ì¶”ê°€</button> <!-- ë²„íŠ¼ì— id ì¶”ê°€ -->
+    <button>ë‚´ì •ë³´ìˆ˜ì •</button>
   </div>
-<div class="card">
+  <div class="card">
     <div class="content">
-      <form id="storeInfo">
-        »óÈ£¸í <input type="text" placeholder="»óÈ£¸í"></br>
-        ÁÖ¼Ò <input type="text" placeholder="ÁÖ¼Ò"></br>
-        ÀüÈ­¹øÈ£ <input type="text" placeholder="ÀüÈ­¹øÈ£"></br>
-        Ä«Å×°í¸® ¼±ÅÃ <select name="category"></br>
-          <option value="">Ä«Å×°í¸® ¼±ÅÃ</option>
-          <option value="ÇÑ½Ä">ÇÑ½Ä</option>
-          <option value="ÀÏ½Ä">ÀÏ½Ä</option>
-          <option value="Áß½Ä">Áß½Ä</option>
-          <option value="¾ç½Ä">¾ç½Ä</option>
-        </select></br>
-        ¿ÀÇÂ ½Ã°£ <input type="text" placeholder="¿ÀÇÂ½Ã°£"></br>
-        ¶ó½ºÆ® ¿À´õ <input type="text" placeholder="¶ó½ºÆ® ¿À´õ"></br>
-        ÃÖ´ë ¿¹¾à °¡´É ÀÎ¿ø <input type="text" placeholder="ÃÖ´ë ¿¹¾à °¡´É ÀÎ¿ø"></br>
-        <button type="submit">ÀúÀåÇÏ±â</button>
+      <form id="storeInfo" action="adminRestAdd.jsp" method="POST"> <!-- action ì†ì„± ì¶”ê°€ -->
+        <label>ìƒí˜¸ëª… <input type="text" name="storeName" placeholder="ìƒí˜¸ëª…"></label></br>
+        <label>ì£¼ì†Œ <input type="text" name="address" placeholder="ì£¼ì†Œ"></label></br>
+        <label>ì „í™”ë²ˆí˜¸ <input type="text" name="phoneNum" placeholder="ì „í™”ë²ˆí˜¸"></label></br>
+        <label>ì¹´í…Œê³ ë¦¬ ì„ íƒ
+          <select name="category">
+            <option value="">ì¹´í…Œê³ ë¦¬ ì„ íƒ</option>
+            <option value="í•œì‹">í•œì‹</option>
+            <option value="ì¼ì‹">ì¼ì‹</option>
+            <option value="ì¤‘ì‹">ì¤‘ì‹</option>
+            <option value="ì–‘ì‹">ì–‘ì‹</option>
+          </select>
+        </label></br>
+        <label>ì˜¤í”ˆ ì‹œê°„ <input type="text" name="openTime" placeholder="ì˜¤í”ˆì‹œê°„"></label></br>
+        <label>ë¼ìŠ¤íŠ¸ ì˜¤ë” <input type="text" name="lastOrder" placeholder="ë¼ìŠ¤íŠ¸ ì˜¤ë”"></label></br>
+        <label>ìµœëŒ€ ì˜ˆì•½ ê°€ëŠ¥ ì¸ì› <input type="text" name="maxReserve" placeholder="ìµœëŒ€ ì˜ˆì•½ ê°€ëŠ¥ ì¸ì›"></label></br>
+        <button type="submit">ì €ì¥í•˜ê¸°</button>
       </form>
     </div>
-    
   </div>
-  
 </div>
 </body>
 </html>
