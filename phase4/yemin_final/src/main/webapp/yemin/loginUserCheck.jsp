@@ -58,9 +58,10 @@
 		}
 		else
 		{
-			String sent = "로그인 성공!";
-			out.println(sent);
-			response.sendRedirect("main.html");
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('로그인 성공');");
+			out.println("window.location.replace('main.html');");
+			out.println("</script>");
 		}
 
 	} catch (SQLException e) {
