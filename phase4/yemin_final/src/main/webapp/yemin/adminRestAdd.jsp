@@ -1,38 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-         pageEncoding="EUC-KR"%>
-<%@ page language="java" import="java.text.*,java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="EUC-KR">
     <title>예약의 민족</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-<%
-    String storeName1 = request.getParameter("storeName");
-    String address1 = request.getParameter("address");
-    String phoneNum1 =  request.getParameter("phoneNum");
-    String category1 = request.getParameter("category");
-    String openTime1 = request.getParameter("openTime");
-    String lastOrder1 = request.getParameter("lastOrder");
-    String maxReserve1 = request.getParameter("maxReserve");
-
-    if (storeName1 == null || address1 == null || phoneNum1 == null || category1 == null || openTime1 == null || lastOrder1 == null || maxReserve1 == null) {
-%>
-<script>
-    alert("모든 값을 입력해주세요!");
-    location.href = "adminRestAdd.html";
-</script>
-<%
-} else {
-    // 데이터베이스 연결 및 쿼리 실행 코드...
-%>
-<script>
-    alert("가게 등록이 완료되었습니다!");
-    location.href = "adminRestAdd.html";
-</script>
-<%
-    }
-%>
+<div class="button-container">
+    <button onclick="location.href='loginUser.html'">사용자 로그인</button>
+    <button onclick="location.href='loginAdmin.html'">관리자 로그인</button>
+    <a onclick="location.href='main.html'">홈으로 돌아가기</a>
+</div>
 </body>
 </html>

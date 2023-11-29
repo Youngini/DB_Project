@@ -8,14 +8,13 @@
 	<title>예약의 민족</title>
 	<script>
 		// 함수 정의
-		function sendToAdminPage(rest_name, adminPw) {
-			sessionStorage.setItem('rest_name', rest_name); // rest_name 저장
+		function sendToAdminPage(rest_name) {
+			sessionStorage.setItem('rest_name', rest_name);
 			location.href = 'adminPage.html'; // 페이지 리디렉션
 		}
 
-		function sendToAdminPwCheck(adminPw){
-			sessionStorage.setItem('adminPw', adminPw); // adminPw 저장
-			location.href = 'adminPwCheck1.html';
+		function savePw(adminPw){
+			sessionStorage.setItem('adminPw', adminPw);
 		}
 	</script>
 </head>
@@ -25,10 +24,13 @@
 	String adminPw = request.getParameter("adminPw");
 
 	if (adminId.equals("1") && adminPw.equals("1")){
+		out.println("<script>savePw('" + adminPw + "');</script>");
 		String manage_id = "123"; // 매니저 아이디 변수에 넣기
 		// 매니저 아이디 넣어서 레스토랑 조회 쿼리문
 		String rest_name = "정다운분식";
-		out.println("<script>sendToAdminPage('"+ rest_name +"');</script>"); // JavaScript 함수 호출
+		out.println("<script>sendToAdminPage('"+ rest_name +"');</script>");
+
+		// JavaScript 함수 호출
 	}
 	else {
 		out.println("<script type=\"text/javascript\">");
