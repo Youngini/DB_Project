@@ -10,35 +10,35 @@
         }
 
         .login-status {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 10px;
             right: 200px;
         }
 
         .mypage-button {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 25px;
             right: 100px;
         }
 
         .logout-button {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 25px;
             right: 20px;
         }
 
         .search-box {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 10px;
-            right: 1600px;
+            right: 1050px;
             height: 30px;
             width: 350px;
         }
 
         .home-button {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 10px;
-            right: 1980px;
+            right: 1450px;
             padding: 20px;
             background-color: lightblue;
             border: none;
@@ -52,9 +52,9 @@
         }
 
         .reservation {
-            position: fixed;
+            position: absolute; /* 변경된 부분 */
             top: 50px;
-            right: 1600px;
+            right: 1050px;
         }
 
         .search-button {
@@ -92,7 +92,7 @@
             padding-right: 100px;
             padding-bottom: 100px;
             margin-top: 50px;
-            margin-left: 300px; /* 왼쪽 마진 추가 */
+            margin-left: 200px; /* 왼쪽 마진 추가 */
             margin-right: 300px; /* 오른쪽 마진 추가 */
             margin-bottom: 50px;
         }
@@ -103,12 +103,13 @@
             border: none;
             border-radius: 5px;
             width: 150px;
-            height: 200px;
+            height: 100px;
             display: flex;
+            flex-direction: column;  /* 추가된 속성 */
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 20px;
+            text-decoration: none;  /* 밑줄 제거 */
         }
 
         .card:hover {
@@ -120,12 +121,51 @@
             font-size: 25px;
             color: black;
         }
+
+        .restaurant-name {
+            font-weight: bold; /* 볼드체로 표시 */
+            color: white; /* 식당 이름의 색상을 흰색으로 설정 */
+            font-size: 20px; /* 폰트 크기를 20px로 설정 */
+            margin-bottom: 2px; /* 식당 이름 아래에 마진 추가 */
+        }
+
+        .date {
+            color: white; /* 식당 이름의 색상을 검은색으로 설정 */
+            font-size: 15px; /* 폰트 크기를 20px로 설정 */
+        }
+
+        .card a {
+            text-decoration: none;  /* 밑줄 제거 */
+        }
+
+        .right-sidebar {
+            position: fixed;
+            right: 0;
+            top: 105px; /* 세로줄이 가로선 위를 넘지 않도록 조정 */
+            height: calc(100vh - 100px); /* 세로줄이 가로선 위를 넘지 않도록 조정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 2px solid lightblue; /* 세로줄 추가 */
+        }
+
+        .delete-account {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: lightblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 
 <body>
 <h1>예약의 민족</h1>
-<a class="home-button" href="home.html">홈</a>
+<a class="home-button" href="userMain.html">홈</a>
 <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
 <p class="login-status">OOO님 어서오세요!</p>
 <a class="mypage-button" href="userPage.html">마이페이지</a>
@@ -142,10 +182,38 @@
 
 <div class="card-container">
     <div class="card-title">예약된 식당</div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
+    <div class="card">
+        <a href="reservation.html">
+            <div class="card">
+                <p class="restaurant-name">식당 이름</p>
+                <p class="date">날짜</p>
+            </div>
+        </a>
+    </div>
+    <div class="card">
+        <a href="reservation.html">
+            <div class="card">
+                <p class="restaurant-name">식당 이름</p>
+                <p class="date">날짜</p>
+            </div>
+        </a>
+    </div>
+    <div class="card">
+        <a href="reservation.html">
+            <div class="card">
+                <p class="restaurant-name">식당 이름</p>
+                <p class="date">날짜</p>
+            </div>
+        </a>
+    </div>
+    <div class="card">
+        <a href="reservation.html">
+            <div class="card">
+                <p class="restaurant-name">식당 이름</p>
+                <p class="date">날짜</p>
+            </div>
+        </a>
+    </div>
 
     <div class="card-title">이전 예약</div>
     <div class="card"></div>
@@ -158,6 +226,10 @@
     <div class="card"></div>
     <div class="card"></div>
     <div class="card"></div>
+</div>
+
+<div class="right-sidebar">
+    <button class="delete-account">회원 탈퇴</button>
 </div>
 
 </body>
