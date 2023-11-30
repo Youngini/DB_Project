@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="EUC-KR">
-    <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+    <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
     <style>
         body {
             display: flex;
@@ -25,10 +25,8 @@
     </style>
 </head>
 <body>
-<div class="button-container">
-    <button onclick="location.href='loginUser.html'">»ç¿ëÀÚ ·Î±×ÀÎ</button>
-    <button onclick="location.href='loginAdmin.html'">°ü¸®ÀÚ ·Î±×ÀÎ</button>
-    <a onclick="location.href='main.html'">È¨À¸·Î µ¹¾Æ°¡±â</a>
-</div>
+<%
+
+%>
 </body>
 </html>

@@ -86,12 +86,13 @@
       var enteredPassword = document.getElementById('adminPwCh').value;
       var newPassword = document.getElementById('adminPwAfter').value;
       var adminPw = sessionStorage.getItem('adminPw');
+      var manager_id = sessionStorage.getItem('manager_id');
 
       if (enteredPassword !== adminPw) {
         alert("비밀번호가 다릅니다!");
       } else {
         // 비밀번호가 일치하는 경우, 바꿀 비밀번호를 adminChangePw.jsp로 전달
-        location.href = 'adminChangePw.jsp?newPassword=' + newPassword;
+        location.href = 'adminChangePw.jsp?newPassword=' + newPassword + '&manager_id=' + manager_id;
 
       }
     }
