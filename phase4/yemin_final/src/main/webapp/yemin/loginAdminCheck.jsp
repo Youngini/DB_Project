@@ -79,21 +79,7 @@
 	}
 
 
-//	if (adminId.equals("1") && adminPw.equals("1")){
-//		out.println("<script>savePw('" + adminPw + "');</script>");
-//		String manage_id = "123"; // 매니저 아이디 변수에 넣기
-//		// 매니저 아이디 넣어서 레스토랑 조회 쿼리
-//		String rest_name = "정다운분식";
-//		out.println("<script>sendToAdminPage('"+ rest_name +"');</script>");
-//
-//		// JavaScript 함수 호출
-//	}
-//	else {
-//		out.println("<script type=\"text/javascript\">");
-//		out.println("alert('로그인 실패!');");
-//		out.println("location='loginAdmin.html';");
-//		out.println("</script>");
-//	}
+
 %>
 
 </body>
