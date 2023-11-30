@@ -8,13 +8,14 @@
 	<title>예약의 민족</title>
 	<script>
 		// 함수 정의
-		function sendToAdminPage(rest_name, r_id){
+		function sendToAdminPage(r_id, rest_name){
 			sessionStorage.setItem('rest_name', rest_name);
 			sessionStorage.setItem('r_id', r_id);
 			location.href = 'adminPage.html'; // 페이지 리디렉션
 		}
 
-		function savePw(adminPw){
+		function saveManager_Info(manager_id,adminPw){
+			sessionStorage.setItem('manager_id', manager_id);
 			sessionStorage.setItem('adminPw', adminPw);
 		}
 	</script>
@@ -60,15 +61,16 @@
 		}
 		else
 		{
-			out.println("<script>savePw('" + adminPw + "');</script>");
+
 			String manager_id = rs.getString("manager_id"); // 매니저 아이디 변수에 넣기
+			out.println("<script>saveManager_Info('" + manager_id + "','" + adminPw + "');</script>");
 			sql="select restaurant_name,restaurant_id from restaurant where rt_manager_id = '" + manager_id + "'";
 			rs = stmt.executeQuery(sql);
 			rs.next();
 			String rest_name = rs.getString("restaurant_name");
 			String r_id = rs.getString("restaurant_id");
 
-			out.println("<script>sendToAdminPage('"+ rest_name +"','"+ r_id +"');</script>");
+			out.println("<script>sendToAdminPage('"+ r_id +"','"+ rest_name +"');</script>");
 
 		}
 
