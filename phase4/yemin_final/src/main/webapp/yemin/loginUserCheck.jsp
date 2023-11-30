@@ -32,12 +32,6 @@
 		ex.printStackTrace();
 	}
 
-
-
-
-
-
-
 	String userId = request.getParameter("userId");
 	String userPw = request.getParameter("userPw");
 
