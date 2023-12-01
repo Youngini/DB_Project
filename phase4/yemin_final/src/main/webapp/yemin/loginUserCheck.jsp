@@ -68,7 +68,6 @@
 
 
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('로그인 성공');");
 			out.println("window.location.replace('userMain.html');");
 			out.println("</script>");
 		}

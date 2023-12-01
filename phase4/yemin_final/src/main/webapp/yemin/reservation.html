@@ -78,13 +78,25 @@
         }
 
     </style>
+    <script>
+        window.onload = function() {
+            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
+            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
+            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+
+            document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+
+
+
+        }
+    </script>
 </head>
 
 <body>
 <h1>예약의 민족</h1>
 <a class="home-button" href="userMain.html">홈</a>
 <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
-<p class="login-status">OOO님 어서오세요!</p>
+<p class="login-status" id="greeting"></p>
 <a class="mypage-button" href="userPage.html">마이페이지</a>
 <a class="logout-button" href="main.html">로그아웃</a>
 
