@@ -60,6 +60,9 @@
     </style>
     <script>
         window.onload = function() {
+            var manager_name=sessionStorage.getItem('manager_name')
+            document.getElementById('greeting').innerHTML = manager_name + "´Ô ¾È³çÇÏ¼¼¿ä?";
+
             var adminPw = sessionStorage.getItem('adminPw');
             document.getElementById('adminPw').innerHTML = adminPw;
             document.getElementById('logout').addEventListener('click', function() {
@@ -79,7 +82,7 @@
 <body>
 <div class="navbar">
     <button id="home">Home</button> <!-- Home ¹öÆ° Ãß°¡ -->
-    <div>±èÇö¼ö´Ô ¾È³çÇÏ¼¼¿ä?</div>
+    <div id = "greeting"></div>
     <button id="logout">·Î±×¾Æ¿ô</button>
 </div>
 <div class="container">
