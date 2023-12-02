@@ -60,17 +60,57 @@
   </style>
   <script>
     window.onload = function() {
-      var rest_name = sessionStorage.getItem('rest_name');
-      var r_id = sessionStorage.getItem('r_id');
+      // var rest_name = sessionStorage.getItem('rest_name');
+      // var r_id = sessionStorage.getItem('r_id');
       var manager_id=sessionStorage.getItem('manager_id')
 
-      console.log(r_id);
+      // sessionStorage에서 배열 가져오기
+      var storedRestaurants = sessionStorage.getItem('restaurants');
+
+      var restaurants = JSON.parse(storedRestaurants);
+      console.log(restaurants);
+
+
+      var restaurantsContainer = document.getElementById('restaurantsContainer');
+
+      restaurants.forEach(function(restaurant) {
+        for (var key in restaurant) {
+          var r_id = key;
+          var rest_name = restaurant[key];
+
+
+
+          //가게 정보를 출력할 HTML 요소 생성
+          var card = document.createElement('div');
+          card.className = 'card';
+
+          var content = document.createElement('div');
+          content.className = 'content';
+
+          var h2 = document.createElement('h2');
+          h2.textContent = rest_name;
+
+          var button = document.createElement('button');
+          button.textContent = '가게 상세 정보';
+          button.addEventListener('click', function() {
+            // 상세 페이지로 이동하는 로직 추가
+            location.href = 'adminReview.jsp?r_id=' + r_id;
+          });
+          content.appendChild(h2);
+          content.appendChild(button);
+          card.appendChild(content);
+
+          //가게 정보를 출력할 요소를 restaurantsContainer에 추가
+          restaurantsContainer.appendChild(card);
+        }
+      });
+
+
       console.log(manager_id);
       var manager_name=sessionStorage.getItem('manager_name')
       document.getElementById('greeting').innerHTML = manager_name + "님 안녕하세요?";
 
       //document.getElementById('r_id').innerHTML = r_id;
-      document.getElementById('rest_name').innerHTML = rest_name;
 
       document.getElementById('logout').addEventListener('click', function() {
         location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
@@ -106,12 +146,11 @@
     <button id="changeMyInfo">내 정보 수정</button>
     <button id="changePw">비밀번호 변경</button><!-- 버튼에 id 추가 -->
   </div>
-  <div class="card">
-    <div class="content">
-      <h2 id="rest_name"></h2>
-      <button>가게 상세 정보</button>
-    </div>
-  </div>
+
+<div class="card">
+  <div id="restaurantsContainer"></div>
+</div>
+
 </div>
 </body>
 </html>

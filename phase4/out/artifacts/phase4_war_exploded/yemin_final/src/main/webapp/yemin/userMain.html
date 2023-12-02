@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>예약의 민족</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: navy;
+        }
+
+        .login-status {
+            position: fixed;
+            top: 10px;
+            right: 200px;
+        }
+
+        .mypage-button {
+            position: fixed;
+            top: 25px;
+            right: 100px;
+        }
+
+        .logout-button {
+            position: fixed;
+            top: 25px;
+            right: 20px;
+        }
+
+        .search-box {
+            position: fixed;
+            top: 10px;
+            right: 1050px;
+            height: 30px;
+            width: 350px;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 10px;
+            right: 1450px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: dodgerblue;
+        }
+
+        .reservation {
+            position: fixed;
+            top: 50px;
+            right: 1050px;
+        }
+
+        .search-button {
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: dodgerblue;
+        }
+
+        /* 수정된 부분 시작 */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .card:hover {
+            cursor: pointer;
+        }
+
+        .line {
+            height: 2px;
+            background-color: lightblue;
+            margin-top: 40px;
+        }
+        /* 수정된 부분 끝 */
+    </style>
+    <script>
+        window.onload = function() {
+            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
+            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
+            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+
+            document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+<h1>예약의 민족</h1>
+<a class="home-button" href="userMain.html">홈</a>
+<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
+<p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
+<a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
+<a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
+
+<div class="reservation">
+    <input type="date">
+    <input type="time">
+    <input type="number" min="1" max="100" placeholder="인원 수">
+    <button class="search-button" onclick="location.href='search.html'">검색</button>
+</div>
+
+<div class="line"></div>
+
+<div class="card-container">
+    <a class="card" href="#한식">한식</a>
+    <a class="card" href="#일식">일식</a>
+    <a class="card" href="#양식">양식</a>
+    <a class="card" href="#중식">중식</a>
+</div>
+
+</body>
+</html>
