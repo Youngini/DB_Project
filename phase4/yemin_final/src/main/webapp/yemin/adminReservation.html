@@ -29,21 +29,23 @@
             flex-direction: column;
             gap: 20px;
         }
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
 
     </style>
     <script>
         window.onload = function() {
-            // var rest_name = sessionStorage.getItem('rest_name');
-            // var r_id = sessionStorage.getItem('r_id');
-            // var manager_id=sessionStorage.getItem('manager_id')
-            //
-            // console.log(r_id);
-            // console.log(manager_id);
-            // var manager_name=sessionStorage.getItem('manager_name')
-            // document.getElementById('greeting').innerHTML = manager_name + "님 안녕하세요?";
 
-            //document.getElementById('r_id').innerHTML = r_id;
-            // document.getElementById('rest_name').innerHTML = rest_name;
+            var rservation_container=sessionStorage.getItem('reservations');
+            console.log(rservation_container);
+            var rservations=JSON.parse(rservation_container);
+
+            var r_id = sessionStorage.getItem('r_id');
+            console.log(r_id);
+            console.log(rservations);
 
             document.getElementById('logout').addEventListener('click', function() {
                 location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
@@ -68,6 +70,31 @@
                 location.href = 'adminStoreInfoEdit.html'; // '가게 정보 수정' 버튼 클릭 시 'adminStoreInfoEdit.html'로 이동
             });
 
+            var container = document.getElementById('reservationContainer');
+            if(!rservations) {
+                container.innerHTML = '예약이 없습니다.';
+            }
+            else{
+                rservations.forEach(function (reservation){
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card';
+
+                    var reservation_date = document.createElement('p');
+                    reservation_date.textContent = '예약일자: ' + reservation.reservation_date;
+
+                    var reservation_time = document.createElement('p');
+                    reservation_time.textContent = '예약시간: ' + reservation.reservation_time;
+
+                    var partysize = document.createElement('p');
+                    partysize.textContent = '인원: ' + reservation.party_size;
+                    cardDiv.appendChild(reservation_date);
+                    cardDiv.appendChild(reservation_time);
+                    cardDiv.appendChild(partysize);
+                    container.appendChild(cardDiv);
+                });
+            }
+
+
         }
     </script>
 </head>
@@ -84,11 +111,9 @@
         <button id="menuEdit">메뉴 수정</button>
         <button id="storeInfoEdit">가게 정보 수정</button>
     </div>
-    <div>
-        <div>
-            이것도 adminPage 처럼
-        </div>
-    </div>
+
+    <div id="reservationContainer"></div> <!-- 예약 정보를 출력할 요소 -->
+
 </div>
 </body>
 </html>

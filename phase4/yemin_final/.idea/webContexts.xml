@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view.html" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/yemin/adminReview.jsp" value="file://$PROJECT_DIR$/src/main/webapp/yemin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/yemin/loginUserCheck.jsp" value="file://$PROJECT_DIR$/src/main/webapp/yemin" />
       </map>
     </option>
