@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>예약의 민족</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            text-align: center;
+        }
+
+        .login-container input {
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .go-back-link {
+            position: absolute;
+            bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>관리자 회원가입</h2>
+    <form action="registerUser.jsp" method="POST">
+        이름 <input type="text" name="name" placeholder="이름"></br>
+        생년월일 <input type="date" name="birth" placeholder="생년월일"></br>
+        전화번호 <input type="text" name="phoneNum" placeholder="010-xxxx-xxxx"></br>
+        email <input type="text" name="email" placeholder="이메일"></br>
+        아이디 <input type="text" name="ID" placeholder="아이디">
+        <form action="adminIdCheck.jsp" method="POST"> <!-- 추가된 폼 -->
+            <button type="submit" name="userIdCheck">중복 확인</button>
+        </form>
+        비밀번호 <input type="text" name="PW" placeholder="비밀번호"></br>
+        비밀번호 재입력 <input type="text" name="PWCheck" placeholder="비밀번호 재입력"></br>
+        <button type="submit">회원가입</button>
+    </form>
+</div>
+<a class="go-back-link" onclick="location.href='register.html'">이전으로 돌아가기</a>
+</body>
+</html>
