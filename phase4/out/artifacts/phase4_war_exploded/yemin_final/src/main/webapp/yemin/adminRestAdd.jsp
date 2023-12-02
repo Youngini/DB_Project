@@ -1,38 +1,102 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-         pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page language="java" import="java.text.*,java.sql.*" %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+    <meta charset="EUC-KR">
+    <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
 <%
-    String storeName1 = request.getParameter("storeName");
-    String address1 = request.getParameter("address");
-    String phoneNum1 =  request.getParameter("phoneNum");
-    String category1 = request.getParameter("category");
-    String openTime1 = request.getParameter("openTime");
-    String lastOrder1 = request.getParameter("lastOrder");
-    String maxReserve1 = request.getParameter("maxReserve");
+    request.setCharacterEncoding("UTF-8");
 
-    if (storeName1 == null || address1 == null || phoneNum1 == null || category1 == null || openTime1 == null || lastOrder1 == null || maxReserve1 == null) {
-%>
-<script>
-    alert("¸ğµç °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä!");
-    location.href = "adminRestAdd.html";
-</script>
-<%
-} else {
-    // µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¹× Äõ¸® ½ÇÇà ÄÚµå...
-%>
-<script>
-    alert("°¡°Ô µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù!");
-    location.href = "adminRestAdd.html";
-</script>
-<%
+
+    String serverIP = "localhost";
+    String strSID = "xe";
+    String portNum = "1521";
+    String user = "y2k";
+    String pass = "1234";
+    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+    String sql;
+
+
+    Connection conn = null;
+    ResultSet rs;
+    Statement stmt=null;
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    conn = DriverManager.getConnection(url,user,pass);
+
+    try {
+        stmt = conn.createStatement();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
+
+    String store_name = request.getParameter("store_name");
+    String address = request.getParameter("address");
+    String phone_number = request.getParameter("phone_number");
+    String category = request.getParameter("category");
+    String open_time = request.getParameter("open_time");
+    String last_order= request.getParameter("last_order");
+    String max_reserve = request.getParameter("max_reserve");
+    String manager_id = request.getParameter("manager_id");
+
+//    out.println(store_name+address+phone_number+category+open_time+last_order+max_reserve+manager_id);
+
+//    //Insert Into Restaurant (restaurant_id,phone,open_time,last_order_time,total_party_size,restaurant_address,restaurant_name,rt_manager_id,rt_category_id) values ( 'RT00001' ,'063-538-4515' ,10 ,20.5 ,63 ,'ì „ë¼ë¶ë„ ì •ìì‹œ ë‚´ì¥ì‚°ë¡œ 941-9 (ë‚´ì¥ë™)' ,'ì‹ ì„¸ê³„íšŒê´€' ,'M000544' ,'CT001');
+    try {
+        sql = "select category_id from category where category_name = '" + category + "'";
+        rs = stmt.executeQuery(sql);
+        rs.next();
+        category = rs.getString("category_id");
+        sql = "Insert Into Restaurant (restaurant_id,phone,open_time,last_order_time,total_party_size,restaurant_address,restaurant_name,rt_manager_id,rt_category_id) values " + "('','" + phone_number + "'," + open_time + "," + last_order + "," + max_reserve + ",'" + address + "','" + store_name + "','" + manager_id + "','" + category + "')";
+        out.println(sql);
+        stmt.executeUpdate(sql);
+//
+        out.println("<script>alert('ê°€ê²Œ ë“±ë¡ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.'); location='adminPage.html';</script>");
+
+//    sql="select max(restaurant_id), restaurant_name from restaurant where restaurant_name = '" + store_name + "'";
+//    rs = stmt.executeQuery(sql);
+//    if(rs.next()){
+//        String restaurant_id = rs.getString("max(restaurant_id)");
+//        String restaurant_name = rs.getString("restaurant_name");
+//        out.println("<script>alert('"+restaurant_name+"ì˜ ì•„ì´ë””ëŠ” "+restaurant_id+" ì…ë‹ˆë‹¤.'); location.href='adminPage.jsp';</script>");
+//    }
+//    else{
+//        out.println("<script>alert('ê°€ê²Œ ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.'); location.href='adminPage.jsp';</script>");
+//    }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+
+
+
+
+
 %>
 </body>
 </html>

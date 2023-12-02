@@ -9,10 +9,22 @@
             color: navy;
         }
 
-        .login-button {
+        .login-status {
             position: absolute;
             top: 10px;
-            right: 10px;
+            right: 200px;
+        }
+
+        .mypage-button {
+            position: absolute;
+            top: 25px;
+            right: 100px;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 25px;
+            right: 20px;
         }
 
         .search-box {
@@ -59,46 +71,22 @@
             background-color: dodgerblue;
         }
 
-        /* 수정된 부분 시작 */
-        .card-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .card {
-            margin: 0 10px;
-            padding: 20px;
-            background-color: lightblue;
-            border: none;
-            border-radius: 5px;
-            width: 150px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 20px;
-        }
-
-        .card:hover {
-            cursor: pointer;
-        }
-
         .line {
             height: 2px;
             background-color: lightblue;
             margin-top: 40px;
         }
+
     </style>
 </head>
 
 <body>
 <h1>예약의 민족</h1>
-<a class="home-button" href="main.html">홈</a>
+<a class="home-button" href="userMain.html">홈</a>
 <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
-<a class="login-button" href="login.html">로그인</a>
+<p class="login-status">OOO님 어서오세요!</p>
+<a class="mypage-button" href="userPage.html">마이페이지</a>
+<a class="logout-button" href="main.html">로그아웃</a>
 
 <div class="reservation">
     <input type="date">
@@ -108,13 +96,6 @@
 </div>
 
 <div class="line"></div>
-
-<div class="card-container">
-    <a class="card" href="#한식">한식</a>
-    <a class="card" href="#일식">일식</a>
-    <a class="card" href="#양식">양식</a>
-    <a class="card" href="#중식">중식</a>
-</div>
 
 </body>
 </html>

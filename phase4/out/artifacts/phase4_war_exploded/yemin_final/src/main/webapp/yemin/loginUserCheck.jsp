@@ -19,10 +19,8 @@
 	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 	String sql;
 
-	//System.out.println(url);
-	//out.println(url);
+
 	Connection conn = null;
-	//PreparedStatement pstmt;
 	ResultSet rs;
 	Statement stmt=null;
 	Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -33,12 +31,6 @@
 	} catch (SQLException ex) {
 		ex.printStackTrace();
 	}
-
-
-
-
-
-
 
 	String userId = request.getParameter("userId");
 	String userPw = request.getParameter("userPw");
@@ -67,17 +59,7 @@
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-//	if (userId.equals("1") && userPw.equals("1")){
-//		String sent = "로그인 성공!";
-//		out.println(sent);
-//		response.sendRedirect("main.html");
-//	}
-//	else {
-//		out.println("<script type=\"text/javascript\">");
-//		out.println("alert('로그인 실패!');");
-//		out.println("location='loginUser.html';");
-//		out.println("</script>");
-//	}
+
 %>
 
 </body>

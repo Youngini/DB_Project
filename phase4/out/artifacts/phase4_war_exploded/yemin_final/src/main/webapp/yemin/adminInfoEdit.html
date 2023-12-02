@@ -60,9 +60,8 @@
     </style>
     <script>
         window.onload = function() {
-            var rest_name = sessionStorage.getItem('rest_name');
-            document.getElementById('rest_name').innerHTML = rest_name;
-
+            var adminPw = sessionStorage.getItem('adminPw');
+            document.getElementById('adminPw').innerHTML = adminPw;
             document.getElementById('logout').addEventListener('click', function() {
                 location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
             });
