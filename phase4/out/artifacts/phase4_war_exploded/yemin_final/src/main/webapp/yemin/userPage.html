@@ -139,17 +139,11 @@
         }
 
         .right-sidebar {
-<<<<<<< HEAD
-            position: fixed;
-            right: 0;
-            top: 105px; /* 세로줄이 가로선 위를 넘지 않도록 조정 */
-            height: calc(100vh - 100px); /* 세로줄이 가로선 위를 넘지 않도록 조정 */
-=======
             position: absolute;
             right: 0;
             top: 105px; /* 세로줄이 가로선 위를 넘지 않도록 조정 */
             height: calc(100vh); /* 세로줄이 가로선 위를 넘지 않도록 조정 */
->>>>>>> youngin
+            width: 150px; /* 넓이 추가 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -168,7 +162,6 @@
         }
 
     </style>
-<<<<<<< HEAD
     <script>
         window.onload = function() {
             var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
@@ -181,19 +174,13 @@
 
         }
     </script>
-=======
->>>>>>> youngin
 </head>
 
 <body>
 <h1>예약의 민족</h1>
 <a class="home-button" href="userMain.html">홈</a>
 <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
-<<<<<<< HEAD
 <p class="login-status" id="greeting"></p>
-=======
-<p class="login-status">OOO님 어서오세요!</p>
->>>>>>> youngin
 <a class="mypage-button" href="userPage.html">마이페이지</a>
 <a class="logout-button" href="main.html">로그아웃</a>
 
@@ -255,8 +242,18 @@
 </div>
 
 <div class="right-sidebar">
-    <button class="delete-account">회원 탈퇴</button>
+    <button class="delete-account" onclick="confirmDelete()">회원 탈퇴</button>
 </div>
-
+<script>
+    function confirmDelete() {
+        if(confirm("정말로 탈퇴하시겠습니까?")) {
+            // 사용자가 '네'를 클릭한 경우, 탈퇴 처리를 진행
+            // 여기에 탈퇴 처리 로직을 구현 ㄱㄱ
+            window.location.href = "main.html";
+        } else {
+            // 사용자가 '아니오'를 클릭한 경우, 아무런 동작을 하지 않습니다.
+        }
+    }
+</script>
 </body>
 </html>

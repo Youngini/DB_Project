@@ -77,6 +77,34 @@
             margin-top: 40px;
         }
 
+        .reservation-info {
+            padding-top: 20px;
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-bottom: 30px;
+            margin-top: 50px;
+            margin-left: 200px; /* 왼쪽 마진 추가 */
+            margin-right: 300px; /* 오른쪽 마진 추가 */
+            margin-bottom: 50px;
+            border: 1px solid lightgrey;
+            background-color: #f0f0f0; /* 배경색을 회색으로 설정 */
+            text-align: center; /* 텍스트를 중간 정렬 */
+        }
+
+        .info {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .cancel-button {
+            margin-top: 60px;
+            padding: 10px;
+            background-color: lightblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
     </style>
     <script>
         window.onload = function() {
@@ -86,8 +114,13 @@
 
             document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
 
-
-
+        }
+        function cancelReservation() {
+            if (confirm("예약을 취소하시겠습니까?")) {
+                // 예를 선택했을 때
+                window.location.href = "userPage.html";
+                alert("예약이 취소되었습니다.");
+            }
         }
     </script>
 </head>
@@ -108,6 +141,17 @@
 </div>
 
 <div class="line"></div>
-
+<div class="reservation-info">
+    <h2>예약 내역</h2>
+    <hr> <!-- 여기에 가로선을 추가하였습니다. -->
+    <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
+        <p>예약일시: </p>
+        <p>식당이름: </p>
+        <p>식당주소: </p>
+        <p>예약자이름: </p>
+        <p>예약상태: </p>
+    </div>
+    <button class="cancel-button" onclick="cancelReservation()"> 예약 취소</button>
+</div>
 </body>
 </html>
