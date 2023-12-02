@@ -139,10 +139,11 @@
         }
 
         .right-sidebar {
-            position: fixed;
+            position: absolute;
             right: 0;
             top: 105px; /* 세로줄이 가로선 위를 넘지 않도록 조정 */
-            height: calc(100vh - 100px); /* 세로줄이 가로선 위를 넘지 않도록 조정 */
+            height: calc(100vh); /* 세로줄이 가로선 위를 넘지 않도록 조정 */
+            width: 150px; /* 넓이 추가 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -241,8 +242,18 @@
 </div>
 
 <div class="right-sidebar">
-    <button class="delete-account">회원 탈퇴</button>
+    <button class="delete-account" onclick="confirmDelete()">회원 탈퇴</button>
 </div>
-
+<script>
+    function confirmDelete() {
+        if(confirm("정말로 탈퇴하시겠습니까?")) {
+            // 사용자가 '네'를 클릭한 경우, 탈퇴 처리를 진행
+            // 여기에 탈퇴 처리 로직을 구현 ㄱㄱ
+            window.location.href = "main.html";
+        } else {
+            // 사용자가 '아니오'를 클릭한 경우, 아무런 동작을 하지 않습니다.
+        }
+    }
+</script>
 </body>
 </html>
