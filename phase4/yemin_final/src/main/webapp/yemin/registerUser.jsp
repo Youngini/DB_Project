@@ -3,7 +3,11 @@
 <%@ page language="java" import="java.util.Scanner" %>
 <%@ page language="java" import="java.util.*" %>
 <%@ page import="com.sun.tools.jconsole.JConsoleContext" %>
-
+<script>
+    function sessionclear(){
+        sessionStorage.clear();
+    }
+</script>
 <%
     request.setCharacterEncoding("UTF-8");
 
@@ -39,6 +43,7 @@
         sql="Insert Into Customer (customer_id,name,login_id,login_pw,email,phone,birth) values ('','"+name+"','"+ID+"','"+PW+"','"+email+"','"+phoneNum+"','"+birth+"')";
         out.println(sql);
         stmt.executeUpdate(sql);
+        out.println("<script>sessionclear();</script>");
         out.println("<script>alert('회원가입이 완료되었습니다.'); location.href='main.html';</script>");
 
     }
