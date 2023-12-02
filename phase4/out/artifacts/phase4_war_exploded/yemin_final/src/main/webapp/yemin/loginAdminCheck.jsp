@@ -8,34 +8,80 @@
 	<title>예약의 민족</title>
 	<script>
 		// 함수 정의
-		function sendToAdminPage(rest_name, adminPw) {
-			sessionStorage.setItem('rest_name', rest_name); // rest_name 저장
+		function sendToAdminPage(r_id, rest_name){
+			sessionStorage.setItem('rest_name', rest_name);
+			sessionStorage.setItem('r_id', r_id);
 			location.href = 'adminPage.html'; // 페이지 리디렉션
 		}
 
-		function sendToAdminPwCheck(adminPw){
-			sessionStorage.setItem('adminPw', adminPw); // adminPw 저장
-			location.href = 'adminPwCheck1.html';
+		function saveManager_Info(manager_id,manager_name,adminPw){
+			sessionStorage.setItem('manager_id', manager_id);
+			sessionStorage.setItem('manager_name', manager_name);
+			sessionStorage.setItem('adminPw', adminPw);
 		}
 	</script>
 </head>
 <body>
 <%
+	String serverIP = "localhost";
+	String strSID = "xe";
+	String portNum = "1521";
+	String user = "y2k";
+	String pass = "1234";
+	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+	String sql;
+
+
+	Connection conn = null;
+	ResultSet rs;
+	Statement stmt=null;
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	conn = DriverManager.getConnection(url,user,pass);
+
+	try {
+		stmt = conn.createStatement();
+	} catch (SQLException ex) {
+		ex.printStackTrace();
+	}
+
+
 	String adminId = request.getParameter("adminId");
 	String adminPw = request.getParameter("adminPw");
 
-	if (adminId.equals("1") && adminPw.equals("1")){
-		String manage_id = "123"; // 매니저 아이디 변수에 넣기
-		// 매니저 아이디 넣어서 레스토랑 조회 쿼리문
-		String rest_name = "정다운분식";
-		out.println("<script>sendToAdminPage('"+ rest_name +"');</script>"); // JavaScript 함수 호출
+	try {
+		sql = "SELECT manager_id, name\n" +
+				"FROM manager \n" +
+				"WHERE login_id = '" + adminId + "'\n" +
+				"AND login_pw='" + adminPw + "'";
+		rs = stmt.executeQuery(sql);
+		if(!rs.next()) {
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('로그인 실패!');");
+			out.println("location='loginAdmin.html';");
+			out.println("</script>");
+		}
+		else
+		{
+
+			String manager_id = rs.getString("manager_id"); // 매니저 아이디 변수에 넣기
+			String manager_name = rs.getString("name"); // 매니저 이름 변수에 넣기
+			out.println("<script>saveManager_Info('" + manager_id + "','" +manager_name+"','"+ adminPw + "');</script>");
+			sql="select restaurant_name,restaurant_id from restaurant where rt_manager_id = '" + manager_id + "'";
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			String rest_name = rs.getString("restaurant_name");
+			String r_id = rs.getString("restaurant_id");
+
+			out.println("<script>sendToAdminPage('"+ r_id +"','"+ rest_name +"');</script>");
+
+		}
+
+	} catch (SQLException e) {
+		e.printStackTrace();
 	}
-	else {
-		out.println("<script type=\"text/javascript\">");
-		out.println("alert('로그인 실패!');");
-		out.println("location='loginAdmin.html';");
-		out.println("</script>");
-	}
+
+
+
 %>
 
 </body>

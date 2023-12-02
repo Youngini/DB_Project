@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>예약의 민족</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+    }
+    .sidebar {
+      width: 200px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      flex-grow: 3;
+      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card .content {
+      border: 1px solid #ddd;
+      padding: 100px;
+      width: 500px;
+      text-align: center;
+      display: flex;
+      flex-direction: column; /* 요소들을 세로로 배치 */
+      gap: 20px; /* 요소들 사이의 간격 설정 */
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      document.getElementById('logout').addEventListener('click', function() {
+        location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
+      });
+
+      document.getElementById('addStore').addEventListener('click', function() {
+        location.href = 'adminRestAdd.html'; // '가게 추가' 버튼 클릭 시 'adminRestAdd.html'로 이동
+      });
+      document.getElementById('home').addEventListener('click', function() {
+        location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
+      });
+    }
+  </script>
+</head>
+<body>
+<div class="navbar">
+
+  <button id="home">Home</button> <!-- Home 버튼 추가 -->
+  <div>김현수님 안녕하세요?</div>
+  <button id="logout">로그아웃</button>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <button id="addStore">가게 추가</button> <!-- 버튼에 id 추가 -->
+    <button>내정보수정</button>
+  </div>
+  <div class="card">
+    <div class="content">
+      <form id="storeInfo" action="adminRestAdd.jsp" method="POST"> <!-- action 속성 추가 -->
+        <label>상호명 <input type="text" name="storeName" placeholder="상호명"></label></br>
+        <label>주소 <input type="text" name="address" placeholder="주소"></label></br>
+        <label>전화번호 <input type="text" name="phoneNum" placeholder="전화번호"></label></br>
+        <label>카테고리 선택
+          <select name="category">
+            <option value="">카테고리 선택</option>
+            <option value="한식">한식</option>
+            <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="양식">양식</option>
+          </select>
+        </label></br>
+        <label>오픈 시간 <input type="text" name="openTime" placeholder="오픈시간"></label></br>
+        <label>라스트 오더 <input type="text" name="lastOrder" placeholder="라스트 오더"></label></br>
+        <label>최대 예약 가능 인원 <input type="text" name="maxReserve" placeholder="최대 예약 가능 인원"></label></br>
+        <button type="submit">저장하기</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>예약의 민족</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+    </style>
+    <script>
+        window.onload = function() {
+            // var rest_name = sessionStorage.getItem('rest_name');
+            // var r_id = sessionStorage.getItem('r_id');
+            // var manager_id=sessionStorage.getItem('manager_id')
+            //
+            // console.log(r_id);
+            // console.log(manager_id);
+            // var manager_name=sessionStorage.getItem('manager_name')
+            // document.getElementById('greeting').innerHTML = manager_name + "님 안녕하세요?";
+
+            //document.getElementById('r_id').innerHTML = r_id;
+            // document.getElementById('rest_name').innerHTML = rest_name;
+
+            document.getElementById('logout').addEventListener('click', function() {
+                location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
+            });
+
+            document.getElementById('home').addEventListener('click', function() {
+                location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
+            });
+            document.getElementById('reviewAndStar').addEventListener('click', function() {
+                location.href = 'adminReview.html'; // '리뷰 별점' 버튼 클릭 시 'adminReview.html'로 이동
+            });
+
+            document.getElementById('reservation').addEventListener('click', function() {
+                location.href = 'adminReservation.html'; // '예약 현황' 버튼 클릭 시 'adminReservation.html'로 이동
+            });
+
+            document.getElementById('menuEdit').addEventListener('click', function() {
+                location.href = 'adminMenuEdit.html'; // '메뉴 수정' 버튼 클릭 시 'adminMenuEdit.html'로 이동
+            });
+
+            document.getElementById('storeInfoEdit').addEventListener('click', function() {
+                location.href = 'adminStoreInfoEdit.html'; // '가게 정보 수정' 버튼 클릭 시 'adminStoreInfoEdit.html'로 이동
+            });
+            document.getElementById('save').addEventListener('click', function() {
+                location.href = 'adminStoreInfoEdit.jsp'; // '저장하기' 버튼 클릭 시 'adminStoreInfoEdit.jsp'로 이동
+            });
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="navbar">
+    <button id="home">Home</button> <!-- Home 버튼 추가 -->
+    <div id = "greeting"></div>
+    <button id="logout">로그아웃</button>
+</div>
+<div class="container">
+    <div class="sidebar">
+        <button id="reviewAndStar">리뷰 별점</button>
+        <button id="reservation">예약 현황</button>
+        <button id="menuEdit">메뉴 수정</button>
+        <button id="storeInfoEdit">가게 정보 수정</button>
+    </div>
+    <div class="card">
+        <div class="content">
+        <form id="storeInfo">
+            <label for="storeName">상호명:</label><br>
+            <input type="text" id="storeName" name="storeName"><br>
+            <label for="address">주소:</label><br>
+            <input type="text" id="address" name="address"><br>
+            <label for="phone">전화번호:</label><br>
+            <input type="text" id="phone" name="phone"><br>
+            <label for="category">카테고리:</label><br>
+            <select id="category" name="category">
+                <option value="korean">한식</option>
+                <option value="japanese">일식</option>
+                <option value="chinese">중식</option>
+                <option value="western">양식</option>
+            </select><br>
+            <label for="openTime">오픈 시간:</label><br>
+            <input type="text" id="openTime" name="openTime"><br>
+            <label for="lastOrder">라스트오더:</label><br>
+            <input type="text" id="lastOrder" name="lastOrder"><br>
+            <label for="maxReservations">최대 예약 가능 인원:</label><br>
+            <input type="number" id="maxReservations" name="maxReservations"><br>
+            <button id="reset" type="reset">초기화</button>
+            <button id="save">저장하기</button>
+        </form>
+    </div>
+    </div>
+</div>
+</body>
+</html>
