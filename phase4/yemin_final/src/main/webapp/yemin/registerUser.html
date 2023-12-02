@@ -1,49 +1,131 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
-<head>
-  <meta charset="UTF-8">
-  <title>예약의 민족</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<!DOCTYPE html> <html xmlns="http://www.w3.org/1999/html"> <head> <meta charset="UTF-8"> <title>예약의 민족</title> <style> body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+.login-container {
+  text-align: center;
+}
 
-    .login-container {
-      text-align: center;
-    }
+.login-container input {
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 16px;
+}
 
-    .login-container input {
-      margin-bottom: 10px;
-      padding: 5px;
-      font-size: 16px;
-    }
+.go-back-link {
+  position: absolute;
+  bottom: 30px;
+}
+</style>
+  <script>
+    window.onload = function() {
 
-    .go-back-link {
-      position: absolute;
-      bottom: 30px;
-    }
-  </style>
+      var IsDup="check-need";
+      var form = document.getElementById('registerForm');
+      var userIdCheckBtn = document.getElementById('userIdCheckBtn');
+      userIdCheckBtn.addEventListener('click', function(e) {
+        e.preventDefault(); // 폼 전송 동작 막기
+
+        // 입력한 정보 가져오기
+        var name = form.name.value;
+        var birth = form.birth.value;
+        var phoneNum = form.phoneNum.value;
+        var email = form.email.value;
+        var ID = form.ID.value;
+        var PW = form.PW.value;
+        var PWCheck = form.PWCheck.value;
+
+        // 입력한 정보 세션에 저장
+        sessionStorage.setItem('name', name);
+        sessionStorage.setItem('birth', birth);
+        sessionStorage.setItem('phoneNum', phoneNum);
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('ID', ID);
+        sessionStorage.setItem('PW', PW);
+        sessionStorage.setItem('PWCheck', PWCheck);
+
+        // 중복 확인을 위해 서버로 요청
+        // AJAX 또는 폼 전송을 통해 서버로 요청하여 중복 확인 처리
+
+        // 예시: AJAX 요청
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'registerUser_ID_Check.jsp', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // 중복 확인 결과 처리
+            var isDuplicate = xhr.responseText; // 서버에서 받은 중복 확인 결과
+            isDuplicate=isDuplicate.trim();
+            console.log(isDuplicate);
+            if (isDuplicate == 'true') {
+              alert('이미 사용 중인 아이디입니다.');
+              IsDup="true"
+
+            } else {
+              alert('사용 가능한 아이디입니다.');
+              IsDup="false"
+            }
+          }
+        };
+        xhr.send('ID=' + ID); // 요청 데이터 전송
+      });
+    // 중복 확인 후에 입력한 정보 세션에서 가져와서 입력 필드에 자동 채우기
+    var name = sessionStorage.getItem('name');
+    var birth = sessionStorage.getItem('birth');
+    var phoneNum = sessionStorage.getItem('phoneNum');
+    var email = sessionStorage.getItem('email');
+    var ID = sessionStorage.getItem('ID');
+    var PW = sessionStorage.getItem('PW');
+    var PWCheck = sessionStorage.getItem('PWCheck');
+
+    form.name.value = name;
+    form.birth.value = birth;
+    form.phoneNum.value = phoneNum;
+    form.email.value = email;
+    form.ID.value = ID;
+    form.PW.value = PW;
+    form.PWCheck.value = PWCheck;
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      console.log(IsDup);
+      if(IsDup == "true"){
+        alert("아이디 중복확인을 해주세요.");
+        e.preventDefault();
+      }
+      else if(IsDup == "check-need"){
+        alert("아이디 중복확인을 해주세요.");
+        e.preventDefault();
+      }
+      else if(form.name.value == "" || form.birth.value == "" || form.phoneNum.value == "" || form.email.value == "" || form.ID.value == "" || form.PW.value == "" || form.PWCheck.value == ""){
+        alert("모든 정보를 입력해주세요.");
+        e.preventDefault();
+      }
+      else if(form.PW.value != form.PWCheck.value){
+        alert("비밀번호가 일치하지 않습니다.");
+        e.preventDefault();
+      }
+
+    });
+  }
+  </script>
 </head>
 <body>
-<div class="login-container">
-  <h2>사용자 회원가입</h2>
-  <form action="registerAdmin.jsp" method="POST">
-    이름 <input type="text" name="name" placeholder="이름"></br>
-    생년월일 <input type="date" name="birth" placeholder="생년월일"></br>
-    전화번호 <input type="text" name="phoneNum" placeholder="010-xxxx-xxxx"></br>
-    email <input type="text" name="email" placeholder="이메일"></br>
-    아이디 <input type="text" name="ID" placeholder="아이디">
-    <form action="AdminIdCheck.jsp" method="POST"> <!-- 추가된 폼 -->
-      <button type="submit" name="userIdCheck">중복 확인</button>
-    </form>
-    비밀번호 <input type="text" name="PW" placeholder="비밀번호"></br>
-    비밀번호 재입력 <input type="text" name="PWCheck" placeholder="비밀번호 재입력"></br>
-    <button type="submit">회원가입</button>
-  </form>
+<div class="login-container"> <h2>사용자 회원가입</h2> <form id="registerForm" action="registerUser.jsp" method="POST">
+  이름 <input type="text" name="name" placeholder="이름"><br>
+  생년월일 <input type="date" name="birth" placeholder="생년월일"><br>
+  전화번호 <input type="text" name="phoneNum" placeholder="010-xxxx-xxxx"><br>
+  email <input type="text" name="email" placeholder="이메일"><br>
+  아이디 <input type="text" name="ID" placeholder="아이디">
+  <button type="button" id="userIdCheckBtn">중복 확인</button><br> <!-- <br> 태그 추가 -->
+  비밀번호 <input type="text" name="PW" placeholder="비밀번호"><br>
+  비밀번호 재입력 <input type="text" name="PWCheck" placeholder="비밀번호 재입력"><br>
+  <button type="submit">회원가입</button>
+</form>
 </div>
-<a class="go-back-link" onclick="location.href='register.html'">이전으로 돌아가기</a>
+<a class="go-back-link" onclick="goBack()">이전으로 돌아가기</a>
+<script> function goBack() {
+  var form = document.getElementById('registerForm');
+  form.reset(); // form을 초기화합니다.
+  sessionStorage.clear(); // 세션을 비웁니다.
+  location.href = 'register.html'; // '이전으로 돌아가기' 버튼 클릭 시 'register.html'로 이동
+}
+</script>
 </body>
 </html>
