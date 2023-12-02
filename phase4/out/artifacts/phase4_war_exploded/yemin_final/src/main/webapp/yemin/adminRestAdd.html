@@ -48,37 +48,58 @@
   </style>
   <script>
     window.onload = function() {
+      var manager_id = sessionStorage.getItem('manager_id'); // sessionStorage에 저장된 manager_id를 가져옴
+      document.getElementById('manager_id_input').value = manager_id;
+
+
+      var manager_name=sessionStorage.getItem('manager_name')
+      document.getElementById('greeting').innerHTML = manager_name + "님 안녕하세요?";
+
+
+
       document.getElementById('logout').addEventListener('click', function() {
         location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
       });
 
       document.getElementById('addStore').addEventListener('click', function() {
         location.href = 'adminRestAdd.html'; // '가게 추가' 버튼 클릭 시 'adminRestAdd.html'로 이동
+
       });
+
       document.getElementById('home').addEventListener('click', function() {
         location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
       });
+
+      document.getElementById('changeMyInfo').addEventListener('click', function() {
+        location.href = 'adminChangeMyInfo.html';
+      });
+
+      document.getElementById('changePw').addEventListener('click', function() {
+        location.href = 'adminChangePw.html';
+      });
     }
+
   </script>
 </head>
 <body>
 <div class="navbar">
 
   <button id="home">Home</button> <!-- Home 버튼 추가 -->
-  <div>김현수님 안녕하세요?</div>
+  <div id = "greeting"></div>
   <button id="logout">로그아웃</button>
 </div>
 <div class="container">
   <div class="sidebar">
-    <button id="addStore">가게 추가</button> <!-- 버튼에 id 추가 -->
-    <button>내정보수정</button>
+    <button id="addStore">가게 추가</button>
+    <button id="changeMyInfo">내 정보 수정</button>
+    <button id="changePw">비밀번호 변경</button><!-- 버튼에 id 추가 -->
   </div>
   <div class="card">
     <div class="content">
-      <form id="storeInfo" action="adminRestAdd.jsp" method="POST"> <!-- action 속성 추가 -->
-        <label>상호명 <input type="text" name="storeName" placeholder="상호명"></label></br>
+      <form id="storeInfo" action="adminRestAdd.jsp" method="POST" accept-charset="UTF-8"> <!-- action 속성 추가 -->
+        <label>상호명 <input type="text" name="store_name" placeholder="상호명"></label></br>
         <label>주소 <input type="text" name="address" placeholder="주소"></label></br>
-        <label>전화번호 <input type="text" name="phoneNum" placeholder="전화번호"></label></br>
+        <label>전화번호 <input type="text" name="phone_number" placeholder="전화번호"></label></br>
         <label>카테고리 선택
           <select name="category">
             <option value="">카테고리 선택</option>
@@ -88,9 +109,10 @@
             <option value="양식">양식</option>
           </select>
         </label></br>
-        <label>오픈 시간 <input type="text" name="openTime" placeholder="오픈시간"></label></br>
-        <label>라스트 오더 <input type="text" name="lastOrder" placeholder="라스트 오더"></label></br>
-        <label>최대 예약 가능 인원 <input type="text" name="maxReserve" placeholder="최대 예약 가능 인원"></label></br>
+        <label>오픈 시간 <input type="text" name="open_time" placeholder="오픈시간"></label></br>
+        <label>라스트 오더 <input type="text" name="last_order" placeholder="라스트 오더"></label></br>
+        <label>최대 예약 가능 인원 <input type="text" name="max_reserve" placeholder="최대 예약 가능 인원"></label></br>
+        <input type="hidden" name="manager_id" id="manager_id_input" value="">
         <button type="submit">저장하기</button>
       </form>
     </div>

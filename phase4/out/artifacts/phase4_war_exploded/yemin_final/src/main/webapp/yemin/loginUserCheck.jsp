@@ -7,6 +7,16 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>예약의 민족</title>
+	<script>
+		// 함수 정의
+		function sendToUserPage(customer_id, customer_name, customer_pw) {
+			sessionStorage.setItem('customer_id', customer_id);
+			sessionStorage.setItem('customer_name', customer_name);
+			sessionStorage.setItem('customer_pw', customer_pw);
+		}
+
+
+	</script>
 </head>
 <body>
 <%
@@ -19,10 +29,8 @@
 	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 	String sql;
 
-	//System.out.println(url);
-	//out.println(url);
+
 	Connection conn = null;
-	//PreparedStatement pstmt;
 	ResultSet rs;
 	Statement stmt=null;
 	Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -34,18 +42,12 @@
 		ex.printStackTrace();
 	}
 
-
-
-
-
-
-
 	String userId = request.getParameter("userId");
 	String userPw = request.getParameter("userPw");
 
 
 	try {
-		sql = "SELECT c.customer_id\n" +
+		sql = "SELECT c.customer_id, c.name\n" +
 				"FROM customer c\n" +
 				"WHERE login_id = '" + userId + "'\n" +
 				"AND login_pw='" + userPw + "'";
@@ -58,26 +60,22 @@
 		}
 		else
 		{
+			String customer_id = rs.getString("customer_id");
+			String customer_name = rs.getString("name");
+			String customer_pw = userPw;
+			out.println("<script>sendToUserPage('" + customer_id + "', '" + customer_name + "', '" + customer_pw + "');</script>");
+
+
+
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('로그인 성공');");
-			out.println("window.location.replace('main.html');");
+			out.println("window.location.replace('userMain.html');");
 			out.println("</script>");
 		}
 
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-//	if (userId.equals("1") && userPw.equals("1")){
-//		String sent = "로그인 성공!";
-//		out.println(sent);
-//		response.sendRedirect("main.html");
-//	}
-//	else {
-//		out.println("<script type=\"text/javascript\">");
-//		out.println("alert('로그인 실패!');");
-//		out.println("location='loginUser.html';");
-//		out.println("</script>");
-//	}
+
 %>
 
 </body>
