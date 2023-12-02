@@ -14,9 +14,14 @@
 			location.href = 'adminPage.html'; // 페이지 리디렉션
 		}
 
+<<<<<<< HEAD
 		function saveManager_Info(manager_id,manager_name,adminPw){
 			sessionStorage.setItem('manager_id', manager_id);
 			sessionStorage.setItem('manager_name', manager_name);
+=======
+		function saveManager_Info(manager_id,adminPw){
+			sessionStorage.setItem('manager_id', manager_id);
+>>>>>>> youngin
 			sessionStorage.setItem('adminPw', adminPw);
 		}
 	</script>
@@ -49,7 +54,11 @@
 	String adminPw = request.getParameter("adminPw");
 
 	try {
+<<<<<<< HEAD
 		sql = "SELECT manager_id, name\n" +
+=======
+		sql = "SELECT manager_id\n" +
+>>>>>>> youngin
 				"FROM manager \n" +
 				"WHERE login_id = '" + adminId + "'\n" +
 				"AND login_pw='" + adminPw + "'";
@@ -64,8 +73,12 @@
 		{
 
 			String manager_id = rs.getString("manager_id"); // 매니저 아이디 변수에 넣기
+<<<<<<< HEAD
 			String manager_name = rs.getString("name"); // 매니저 이름 변수에 넣기
 			out.println("<script>saveManager_Info('" + manager_id + "','" +manager_name+"','"+ adminPw + "');</script>");
+=======
+			out.println("<script>saveManager_Info('" + manager_id + "','" + adminPw + "');</script>");
+>>>>>>> youngin
 			sql="select restaurant_name,restaurant_id from restaurant where rt_manager_id = '" + manager_id + "'";
 			rs = stmt.executeQuery(sql);
 			rs.next();
