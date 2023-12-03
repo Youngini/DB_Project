@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="EUC-KR">
+  <title>예약의 민족</title>
+  <style>
+    h1 {
+      text-align: center;
+      color: navy;
+    }
+
+    .login-status {
+      position: absolute;
+      top: 10px;
+      right: 200px;
+    }
+
+    .mypage-button {
+      position: absolute;
+      top: 25px;
+      right: 100px;
+    }
+
+    .logout-button {
+      position: absolute;
+      top: 25px;
+      right: 20px;
+    }
+
+    .search-box {
+      position: absolute;
+      top: 10px;
+      right: 1050px;
+      height: 30px;
+      width: 350px;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 10px;
+      right: 1450px;
+      padding: 20px;
+      background-color: lightblue;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .home-button:hover {
+      background-color: dodgerblue;
+    }
+
+    .reservation {
+      position: absolute;
+      top: 50px;
+      right: 1050px;
+    }
+
+    .search-button {
+      padding: 10px;
+      background-color: lightblue;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .search-button:hover {
+      background-color: dodgerblue;
+    }
+
+    .line {
+      height: 2px;
+      background-color: lightblue;
+      margin-top: 40px;
+    }
+
+    .reservation-info {
+      padding-top: 20px;
+      padding-left: 100px;
+      padding-right: 100px;
+      padding-bottom: 30px;
+      margin-top: 50px;
+      margin-left: 200px; /* 왼쪽 마진 추가 */
+      margin-right: 300px; /* 오른쪽 마진 추가 */
+      margin-bottom: 50px;
+      border: 1px solid lightgrey;
+      background-color: #f0f0f0; /* 배경색을 회색으로 설정 */
+      text-align: center; /* 텍스트를 중간 정렬 */
+    }
+
+    .info {
+      text-align: left;
+      margin-left: 20px;
+    }
+
+    .cancel-button {
+      margin-top: 60px;
+      padding: 10px;
+      background-color: lightblue;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+  </style>
+  <script>
+    window.onload = function() {
+      var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
+      var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
+      var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+
+      document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+    }
+
+    function goToPage(url) {
+      window.location.href = url;
+    }
+
+  </script>
+</head>
+
+<body>
+<h1>예약의 민족</h1>
+<a class="home-button" href="userMain.html">홈</a>
+<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
+<p class="login-status" id="greeting"></p>
+<a class="mypage-button" href="userPage.html">마이페이지</a>
+<a class="logout-button" href="main.html">로그아웃</a>
+
+<div class="reservation">
+  <input type="date">
+  <input type="time">
+  <input type="number" min="1" max="100" placeholder="인원 수">
+  <button class="search-button" onclick="location.href='search.html'">검색</button>
+</div>
+
+<div class="line"></div>
+<div class="reservation-info">
+  <h2>식당 1</h2>
+  <hr> <!-- 여기에 가로선을 추가하였습니다. -->
+  <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
+    <p>식당주소: </p>
+    <p>전화번호: </p>
+    <p>오픈시간: </p>
+    <p>라스트올더시간: </p>
+    <p>예약가능 인원: </p>
+  </div>
+  <button class="cancel-button" onclick="goToPage('userReservation.html')"> 예약 하기</button>
+</div>
+</body>
+</html>
