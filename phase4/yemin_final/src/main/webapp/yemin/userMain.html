@@ -126,20 +126,43 @@
 
         }
     </script>
+    <script>
+        function submitSearch() {
+            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
+            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
+            var searchParams = new URLSearchParams(); // URLSearchParams 객체를 생성하여 URL 매개변수를 관리
+            searchParams.append('customer_id', customer_id); // customer_id를 URL 매개변수로 추가
+            searchParams.append('customer_name', customer_name);
+            searchParams.append('name', document.querySelector('input[name="name"]').value); // 다른 검색 조건도 필요한 경우 추가
+            searchParams.append('date', document.querySelector('input[name="date"]').value);
+            searchParams.append('time', document.querySelector('input[name="time"]').value);
+            searchParams.append('people', document.querySelector('input[name="people"]').value);
+
+            var url = 'search.jsp?' + searchParams.toString(); // URL 매개변수를 문자열로 변환하여 URL 생성
+            window.location.href = url; // 페이지 이동
+        }
+    </script>
 </head>
 
 <body>
 <h1 onclick="location.href='userMain.html'" >예약의 민족</h1>
-<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
+
 <p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
 <a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
 <a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
 
 <div class="reservation">
-    <input type="date">
-    <input type="time">
-    <input type="number" min="1" max="100" placeholder="인원 수">
-    <button class="search-button" onclick="location.href='search.html'">검색</button>
+    <form method="get">
+        <div class="search-inputs">
+            <input type="text" placeholder="맛집을 찾아보세요!" name="name">
+            <input type="date" name="date">
+            <input type="text" name="time" placeholder="ex) 오후1시 -> 13">
+            <input type="number" min="1" max="100" placeholder="인원 수" name="people">
+
+            <button class="search-button" type="button" onclick="submitSearch()">검색</button>
+        </div>
+
+    </form>
 </div>
 
 <div class="line"></div>

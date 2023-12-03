@@ -88,10 +88,33 @@
 
     </style>
     <script>
+
         window.onload = function() {
             var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
             var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
             var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+            var SearchResult = sessionStorage.getItem('SearchResult'); // sessionStorage에 저장된 SearchResult를 가져옴
+            SearchResult= JSON.parse(SearchResult); // JSON 형태의 SearchResult를 객체로 변환
+            console.log(SearchResult);
+            var searchResults = SearchResult; // searchResult를 객체로 변환한 결과를 저장합니다.
+            var searchResultsDiv = document.getElementById('search-results'); // 출력할 영역의 div 요소를 가져옵니다.
+
+// searchResults 객체를 순회하며 결과를 출력합니다.
+            for (var i = 0; i < searchResults.length; i++) {
+                var restaurant = searchResults[i]; // 식당 정보를 가져옵니다.
+
+                // 출력할 HTML 코드를 생성합니다.
+                var encodedData = encodeURIComponent(JSON.stringify(restaurant));
+                var html = '<div class="box" onclick="location.href=\'userRestaurantInfo.html?restaurant_data=' + encodedData + '\'">';
+
+                html += '<h3>' + restaurant.rt_name + '</h3>'; // 식당 이름
+                html += '<p>예약 가능 인원: ' + restaurant.rt_party_size + '</p>'; // 예약 가능 인원
+                html += '<p>전체 수용 가능 인원: ' + restaurant.rt_total_party_size + '</p>'; // 전체 수용 가능 인원
+                html += '</div>';
+
+                // 생성한 HTML 코드를 출력할 영역에 추가합니다.
+                searchResultsDiv.innerHTML += html;
+            }
 
             document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
         }
@@ -104,27 +127,31 @@
 </head>
 
 <body>
-<h1>예약의 민족</h1>
+<h1 onclick="location.href='userMain.html'" >예약의 민족</h1>
 <a class="home-button" href="userMain.html">홈</a>
-<input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
 <p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
 <a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
 <a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
 
 <div class="reservation">
-    <input type="date">
-    <input type="time">
-    <input type="number" min="1" max="100" placeholder="인원 수">
-    <button class="search-button" onclick="location.href='search.html'">검색</button>
+    <form method="get">
+        <div class="search-inputs">
+            <input type="text" placeholder="맛집을 찾아보세요!" name="name">
+            <input type="date" name="date">
+            <input type="text" name="time" placeholder="ex) 오후1시 -> 13">
+            <input type="number" min="1" max="100" placeholder="인원 수" name="people">
+
+            <button class="search-button" type="button" onclick="submitSearch()">검색</button>
+        </div>
+
+    </form>
 </div>
+
 
 <div class="line"></div>
+<div id="search-results"></div> <!-- 검색 결과를 출력할 영역 -->
 
-<div class="box" onclick="goToPage('userRestaurantInfo.html')">
-    <p>식당 이름: 예약의 민족</p>
-    <p>예약 가능 인원: 4명, 오픈 시간: 10:00, 라스트 오더: 22:00</p>
-    <p>주소: 서울시 강남구</p>
-</div>
+
 
 </body>
 </html>
