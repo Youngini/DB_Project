@@ -1,0 +1,126 @@
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="EUC-KR">
+  <title>예약의 민족</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+    }
+    .sidebar {
+      width: 200px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card .content {
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      min-width: 200px; /* 사이드바의 너비와 동일하게 변경 */
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {background-color: #f1f1f1}
+    .dropdown:hover .dropdown-content {display: block;}
+
+  </style>
+  <script>
+    window.onload = function() {
+
+      var manager_name=sessionStorage.getItem('manager_name')
+      document.getElementById('greeting').innerHTML = manager_name + "님 안녕하세요?";
+
+      document.getElementById('logout').addEventListener('click', function() {
+        location.href = 'main.html'; // 로그아웃 버튼 클릭 시 'main.html'로 이동
+      });
+
+      document.getElementById('addStore').addEventListener('click', function() {
+        location.href = 'adminRestAdd.html'; // '가게 추가' 버튼 클릭 시 'adminRestAdd.html'로 이동
+      });
+
+      document.getElementById('home').addEventListener('click', function() {
+        location.href = 'adminPage.html'; // 'Home' 버튼 클릭 시 'adminPage.html'로 이동
+      });
+
+      document.getElementById('changeMyInfo').addEventListener('click', function() {
+        location.href = 'adminChangeMyInfo.html';
+      });
+
+      document.getElementById('changePw').addEventListener('click', function() {
+        location.href = 'adminChangePw.html';
+      });
+    }
+  </script>
+  <script>
+    function changePassword() {
+      var enteredPassword = document.getElementById('adminPwCh').value;
+      var newPassword = document.getElementById('adminPwAfter').value;
+      var adminPw = sessionStorage.getItem('adminPw');
+      var manager_id = sessionStorage.getItem('manager_id');
+
+      if (enteredPassword !== adminPw) {
+        alert("비밀번호가 다릅니다!");
+      } else {
+        // 비밀번호가 일치하는 경우, 바꿀 비밀번호를 adminChangePw.jsp로 전달
+        location.href = 'adminChangePw.jsp?newPassword=' + newPassword + '&manager_id=' + manager_id;
+
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="navbar">
+  <button id="home">Home</button> <!-- Home 버튼 추가 -->
+  <div id = "greeting"></div>
+  <button id="logout">로그아웃</button>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <button id="addStore">가게 추가</button>
+    <button id="changeMyInfo">내 정보 수정</button>
+    <button id="changePw">비밀번호 변경</button><!-- 버튼에 id 추가 -->
+  </div>
+  <div class="card">
+    <div>
+      현재 비밀번호 <input type="password" id="adminPwCh" name="adminPwCh" placeholder="현재 비밀번호">
+      바꿀 비밀번호 <input type="password" id="adminPwAfter" name="adminPwAfter" placeholder="바꿀 비밀번호">
+      <button id="submit" onclick="changePassword()">확인</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

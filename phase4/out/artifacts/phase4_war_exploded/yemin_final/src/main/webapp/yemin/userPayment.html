@@ -71,39 +71,46 @@
             background-color: dodgerblue;
         }
 
-        /* 수정된 부분 시작 */
-        .card-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .card {
-            margin: 0 10px;
-            padding: 20px;
-            background-color: lightblue;
-            border: none;
-            border-radius: 5px;
-            width: 150px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 20px;
-        }
-
-        .card:hover {
-            cursor: pointer;
-        }
-
         .line {
             height: 2px;
             background-color: lightblue;
             margin-top: 40px;
         }
-        /* 수정된 부분 끝 */
+
+        .reservation-info {
+            padding-top: 20px;
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-bottom: 30px;
+            margin-top: 50px;
+            margin-left: 200px; /* 왼쪽 마진 추가 */
+            margin-right: 300px; /* 오른쪽 마진 추가 */
+            margin-bottom: 50px;
+            border: 1px solid lightgrey;
+            background-color: #f0f0f0; /* 배경색을 회색으로 설정 */
+            text-align: center; /* 텍스트를 중간 정렬 */
+        }
+
+        .info {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .payment {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+
+        .cancel-button {
+            margin-top: 60px;
+            padding: 10px;
+            background-color: lightblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
     </style>
     <script>
         window.onload = function() {
@@ -112,10 +119,12 @@
             var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
 
             document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
-
-
-
         }
+
+        function goToPage(url) {
+            window.location.href = url;
+        }
+
     </script>
 </head>
 
@@ -123,9 +132,9 @@
 <h1>예약의 민족</h1>
 <a class="home-button" href="userMain.html">홈</a>
 <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
-<p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
-<a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
-<a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
+<p class="login-status" id="greeting"></p>
+<a class="mypage-button" href="userPage.html">마이페이지</a>
+<a class="logout-button" href="main.html">로그아웃</a>
 
 <div class="reservation">
     <input type="date">
@@ -135,13 +144,30 @@
 </div>
 
 <div class="line"></div>
+<div class="reservation-info">
+    <h2>결제</h2>
+    <hr> <!-- 여기에 가로선을 추가하였습니다. -->
+    <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
+        <p>식당 이름: </p>
+        <p>예약 일시: </p>
+        <p>예약 인원: </p>
+        <p>예약자 이름: </p>
+        <p>예약자 전화번호: </p>
+        <p>주문 내역: </p>
+    </div>
 
-<div class="card-container">
-    <a class="card" href="#한식">한식</a>
-    <a class="card" href="#일식">일식</a>
-    <a class="card" href="#양식">양식</a>
-    <a class="card" href="#중식">중식</a>
+    <div class="payment"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
+        <p>청구 내역: </p>
+        <p>예약비: </p>
+        <p>메뉴 주분: </p>
+        <p>총 청구 금액: </p>
+        <p>무통장 입금: </p>
+        <p>예금주: </p>
+        <p>계좌번호: </p>
+
+    </div>
+
+    <button class="cancel-button" onclick="goToPage('userReservation.html')"> 다음</button>
 </div>
-
 </body>
 </html>
