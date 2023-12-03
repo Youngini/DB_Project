@@ -73,9 +73,7 @@
     document.getElementById("rt_last_order_time").innerText = rt_last_order_time;
     document.getElementById("rt_total_party_size").innerText = rt_total_party_size;
     function goBack() {
-        var category_name = rt_category_id; // 카테고리 이름 설정
-        var url = "search_category.html?category_name=" + category_name;
-        location.href = url;
+        window.history.back();
     }
 </script>
 </body>
