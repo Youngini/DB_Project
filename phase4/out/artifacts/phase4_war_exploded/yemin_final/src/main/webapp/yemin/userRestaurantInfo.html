@@ -107,10 +107,24 @@
 
   </style>
   <script>
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+              results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
     window.onload = function() {
       var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
       var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
       var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+      var encodedData = getParameterByName('restaurant_data');
+      var decodedData = decodeURIComponent(encodedData);
+      var restaurantData = JSON.parse(decodedData);
+      console.log(restaurantData);
+
 
       document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
     }
