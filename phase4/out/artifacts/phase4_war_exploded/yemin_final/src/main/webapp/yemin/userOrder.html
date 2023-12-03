@@ -88,7 +88,7 @@
       margin-bottom: 50px;
       border: 1px solid lightgrey;
       background-color: #f0f0f0; /* 배경색을 회색으로 설정 */
-      text-align: center; /* 텍스트를 중간 정렬 */
+      text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */
     }
 
     .info {
@@ -103,6 +103,14 @@
       color: white;
       border: none;
       cursor: pointer;
+    }
+
+    .order-title {
+      text-align: center;
+    }
+
+    .button-wrapper {
+      text-align: center;
     }
 
   </style>
@@ -139,16 +147,41 @@
 
 <div class="line"></div>
 <div class="reservation-info">
-  <h2>주문</h2>
+  <div class="order-title">
+    <h2>주문</h2>
+  </div>
   <hr> <!-- 여기에 가로선을 추가하였습니다. -->
   <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
-    <p>식당 이름: </p>
-    <p>예약 일시: </p>
-    <p>예약 인원: </p>
-    <p>예약자 이름: </p>
-    <p>예약자 전화번호: </p>
+    <div>
+      <input type="radio" id="preorder" name="orderType" value="preorder">
+      <label for="preorder">미리 주문하기</label>
+    </div>
+    <div>
+      <input type="radio" id="orderOnSpot" name="orderType" value="orderOnSpot">
+      <label for="orderOnSpot">가서 주문하기</label>
+    </div>
   </div>
-  <button class="cancel-button" onclick="goToPage('userReservation.html')"> 다음</button>
+  <div class="menu">
+    <h3>메뉴</h3>
+    <div class="menu-item">
+      <span> 메뉴 이름  </span>
+      <span> 가격  </span>
+      <span> 주무 수량  </span>
+    </div>
+    <div class="menu-item">
+      <span> 돈까스 </span>
+      <span> 9500  </span>
+      <input type="number" min="0" placeholder="주문 수량">
+    </div>
+    <!-- 위의 .menu-item div를 메뉴 개수만큼 복사하여 사용하시면 됩니다. -->
+  </div>
+  <div class="requests">
+    <h3>요청사항</h3>
+    <textarea rows="4" cols="50" placeholder="요청사항을 입력하세요."></textarea>
+  </div>
+  <div class="button-wrapper">
+    <button class="cancel-button" onclick="goToPage('userPayment.html')"> 다음</button>
+  </div>
 </div>
 </body>
 </html>

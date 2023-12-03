@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>예약의 민족</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: navy;
+        }
+
+        .login-status {
+            position: absolute;
+            top: 10px;
+            right: 200px;
+        }
+
+        .mypage-button {
+            position: absolute;
+            top: 25px;
+            right: 100px;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+        }
+
+        .search-box {
+            position: absolute;
+            top: 10px;
+            right: 1050px;
+            height: 30px;
+            width: 350px;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 10px;
+            right: 1450px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-button:hover {
+            background-color: dodgerblue;
+        }
+
+        .reservation {
+            position: absolute;
+            top: 50px;
+            right: 1050px;
+        }
+
+        .search-button {
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: dodgerblue;
+        }
+
+        /* 수정된 부분 시작 */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .card:hover {
+            cursor: pointer;
+        }
+
+        .line {
+            height: 2px;
+            background-color: lightblue;
+            margin-top: 40px;
+        }
+
+        .list-container {
+            margin-top: 20px;
+        }
+
+
+        .list-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* 앞으로 정렬 */
+            color: white;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .list-item:hover {
+            background-color: dodgerblue;
+        }
+
+        .details-button {
+            padding: 10px;
+            background-color: dodgerblue;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .details-button:hover {
+            background-color: lightblue;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination-button {
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pagination-button:hover {
+            background-color: dodgerblue;
+        }
+
+        .register-button {
+            position: absolute;
+            top: 10px;
+            right: 150px;
+        }
+
+        .store-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .store-address {
+            font-size: 18px;
+            white-space: pre-wrap;
+        }
+
+        .store-party_size {
+            font-size: 15px;
+            white-space: pre-wrap;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var customer_id = sessionStorage.getItem('customer_id');
+            var customer_name = sessionStorage.getItem('customer_name');
+            //console.log(customer_name);
+            document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+
+
+            var SearchResult = sessionStorage.getItem('SearchResult');
+            SearchResult = JSON.parse(SearchResult);
+
+            var currentPage = 1;
+            var storesPerPage = 30;
+
+            function getCurrentPageStores() {
+                var startIndex = (currentPage - 1) * storesPerPage;
+                var endIndex = startIndex + storesPerPage;
+                return SearchResult.slice(startIndex, endIndex);
+            }
+
+            function createList() {
+                var listContainer = document.getElementById('listContainer');
+                listContainer.innerHTML = '';
+
+                var currentStores = getCurrentPageStores();
+
+                currentStores.forEach(function(store) {
+                    var listItem = document.createElement('div');
+                    listItem.className = 'list-item';
+
+                    var storeName = document.createElement('span');
+                    storeName.textContent = store.rt_name;
+                    storeName.className = 'store-name';
+                    listItem.appendChild(storeName);
+
+                    var storeAddress = document.createElement('span');
+                    storeAddress.textContent = "주소 :" + store.rt_address;
+                    storeAddress.className = 'store-address';
+                    listItem.appendChild(storeAddress);
+
+                    var storeParty_size = document.createElement('span');
+                    storeParty_size.textContent = "수용인원 :" + store.rt_party_size;
+                    storeParty_size.className = 'store-party_size';
+                    listItem.appendChild(storeParty_size);
+
+                    var detailsButton = document.createElement('button');
+                    detailsButton.textContent = '가게 상세정보';
+                    detailsButton.addEventListener('click', function() {
+                        location.href = 'storeDetails.jsp?rt_id=' + store.rt_id;
+                    });
+                    detailsButton.className = 'details-button';
+                    listItem.appendChild(detailsButton);
+
+                    listContainer.appendChild(listItem);
+                });
+            }
+
+            function createPagination() {
+                var pagination = document.getElementById('pagination');
+                pagination.innerHTML = '';
+
+                var totalPages = Math.ceil(SearchResult.length / storesPerPage);
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageButton = document.createElement('button');
+                    pageButton.textContent = i;
+                    pageButton.className = 'pagination-button';
+
+                    if (i === currentPage) {
+                        pageButton.style.backgroundColor = 'dodgerblue';
+                    }
+
+                    pageButton.addEventListener('click', function() {
+                        currentPage = parseInt(this.textContent);
+                        createList();
+                        createPagination();
+                    });
+
+                    pagination.appendChild(pageButton);
+                }
+            }
+
+            createList();
+            createPagination();
+        };
+    </script>
+</head>
+
+<body>
+<div class="header">
+    <h1 onclick="location.href='main.html'" >예약의 민족</h1>
+    <a class="home-button" href="userMain.html">홈</a>
+    <input class="search-box" type="text" placeholder="맛집을 찾아보세요!">
+    <p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
+    <a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
+    <a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
+</div>
+
+<div class="reservation">
+    <input type="date">
+    <input type="time">
+    <input type="number" min="1" max="100" placeholder="인원 수">
+    <button class="search-button" onclick="location.href='search.html'">검색</button>
+</div>
+
+<div class="line"></div>
+
+<div class="list-container" id="listContainer"></div>
+
+<div class="pagination" id="pagination"></div>
+
+</body>
+</html>

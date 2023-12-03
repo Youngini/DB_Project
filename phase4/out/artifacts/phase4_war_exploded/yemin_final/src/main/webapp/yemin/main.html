@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
-    <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+    <meta charset="UTF-8">
+    <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
     <style>
         h1 {
             text-align: center;
@@ -59,7 +59,7 @@
             background-color: dodgerblue;
         }
 
-        /* ¼öÁ¤µÈ ºÎºĞ ½ÃÀÛ */
+        /* ìˆ˜ì •ëœ ë¶€ë¶„ ì‹œì‘ */
         .card-container {
             display: flex;
             justify-content: center;
@@ -91,29 +91,36 @@
             background-color: lightblue;
             margin-top: 40px;
         }
+        .register-button {
+            position: absolute;
+            top: 10px;
+            right: 150px;
+        }
+
     </style>
 </head>
 
 <body>
-<h1>¿¹¾àÀÇ ¹ÎÁ·</h1>
-<a class="home-button" href="main.html">È¨</a>
-<input class="search-box" type="text" placeholder="¸ÀÁıÀ» Ã£¾Æº¸¼¼¿ä!">
-<a class="login-button" href="login.html">·Î±×ÀÎ</a>
+<h1 onclick="location.href='main.html'" >ì˜ˆì•½ì˜ ë¯¼ì¡±</h1>
+
+<input class="search-box" type="text" placeholder="ë§›ì§‘ì„ ì°¾ì•„ë³´ì„¸ìš”!">
+<a class="register-button" href="register.html">íšŒì›ê°€ì…</a>
+<a class="login-button" href="login.html">ë¡œê·¸ì¸</a>
 
 <div class="reservation">
     <input type="date">
     <input type="time">
-    <input type="number" min="1" max="100" placeholder="ÀÎ¿ø ¼ö">
-    <button class="search-button" onclick="location.href='search.html'">°Ë»ö</button>
+    <input type="number" min="1" max="100" placeholder="ì¸ì› ìˆ˜">
+    <button class="search-button" onclick="location.href='search.html'">ê²€ìƒ‰</button>
 </div>
 
 <div class="line"></div>
 
 <div class="card-container">
-    <a class="card" href="#ÇÑ½Ä">ÇÑ½Ä</a>
-    <a class="card" href="#ÀÏ½Ä">ÀÏ½Ä</a>
-    <a class="card" href="#¾ç½Ä">¾ç½Ä</a>
-    <a class="card" href="#Áß½Ä">Áß½Ä</a>
+    <a class="card" onclick="location.href='search_category.jsp?category_name=í•œì‹'">í•œì‹</a>
+    <a class="card"  onclick="location.href='search_category.jsp?category_name=ì¼ì‹'">ì¼ì‹</a>
+    <a class="card"  onclick="location.href='search_category.jsp?category_name=ì–‘ì‹'">ì–‘ì‹</a>
+    <a class="card"  onclick="location.href='search_category.jsp?category_name=ì¤‘ì‹'">ì¤‘ì‹</a>
 </div>
 
 </body>

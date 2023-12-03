@@ -99,7 +99,13 @@
 				String rest_name = "가게없음";
 				String r_id = "가게없음";
 
-				out.println("<script>sendToAdminPage('" + r_id + "','" + rest_name + "');</script>");
+				StringBuilder jsonBuilder = new StringBuilder();
+				jsonBuilder.append("[");
+				jsonBuilder.append("{\"").append(r_id).append("\": \"").append(rest_name).append("\"}");
+				jsonBuilder.append("]");
+				String restaurantsJson = jsonBuilder.toString();
+				out.println("<script>sendToAdminPage('" + restaurantsJson + "');</script>");
+
 
 			}
 			out.println("<script type=\"text/javascript\">");

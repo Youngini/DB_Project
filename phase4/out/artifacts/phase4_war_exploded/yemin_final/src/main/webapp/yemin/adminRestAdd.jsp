@@ -9,6 +9,14 @@
 <head>
     <meta charset="EUC-KR">
     <title>예약의 민족</title>
+    <script>
+        function sendToAdminPage(restaurantsJson){
+            var restaurants = restaurantsJson; // JSP 스크립트릿 변수를 JavaScript 변수에 할당
+
+            // sessionStorage에 배열을 JSON 문자열로 저장
+            sessionStorage.setItem('restaurants', restaurants);
+        }
+    </script>
     <style>
         body {
             display: flex;
@@ -76,7 +84,31 @@
         sql = "Insert Into Restaurant (restaurant_id,phone,open_time,last_order_time,total_party_size,restaurant_address,restaurant_name,rt_manager_id,rt_category_id) values " + "('','" + phone_number + "'," + open_time + "," + last_order + "," + max_reserve + ",'" + address + "','" + store_name + "','" + manager_id + "','" + category + "')";
         out.println(sql);
         stmt.executeUpdate(sql);
-//
+
+        sql="select restaurant_name,restaurant_id from restaurant where rt_manager_id = '" + manager_id + "'";
+        rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            String rest_name = rs.getString("restaurant_name");
+            String r_id = rs.getString("restaurant_id");
+
+            StringBuilder jsonBuilder = new StringBuilder();
+            jsonBuilder.append("[");
+            jsonBuilder.append("{\"").append(r_id).append("\": \"").append(rest_name).append("\"}");
+
+            while (rs.next()) {
+                rest_name = rs.getString("restaurant_name");
+                r_id = rs.getString("restaurant_id");
+                jsonBuilder.append(",{\"").append(r_id).append("\": \"").append(rest_name).append("\"}");
+            }
+
+            jsonBuilder.append("]");
+
+            String restaurantsJson = jsonBuilder.toString();
+            out.println("<script>sendToAdminPage('" + restaurantsJson + "');</script>");
+            //out.println(restaurantsJson);
+
+        }
+
         out.println("<script>alert('가게 등록에 성공했습니다.'); location='adminPage.html';</script>");
 
 //    sql="select max(restaurant_id), restaurant_name from restaurant where restaurant_name = '" + store_name + "'";

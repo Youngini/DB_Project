@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
-    <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+    <meta charset="UTF-8">
+    <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
     <style>
         h1 {
             text-align: center;
@@ -71,7 +71,7 @@
             background-color: dodgerblue;
         }
 
-        /* ¼öÁ¤µÈ ºÎºĞ ½ÃÀÛ */
+        /* ìˆ˜ì •ëœ ë¶€ë¶„ ì‹œì‘ */
         .card-container {
             display: flex;
             justify-content: center;
@@ -103,44 +103,75 @@
             background-color: lightblue;
             margin-top: 40px;
         }
-        /* ¼öÁ¤µÈ ºÎºĞ ³¡ */
+        /* ìˆ˜ì •ëœ ë¶€ë¶„ ë */
     </style>
     <script>
         window.onload = function() {
-            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage¿¡ ÀúÀåµÈ customer_id¸¦ °¡Á®¿È
-            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage¿¡ ÀúÀåµÈ customer_nameÀ» °¡Á®¿È
-            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage¿¡ ÀúÀåµÈ customer_pw¸¦ °¡Á®¿È
+            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorageì— ì €ì¥ëœ customer_idë¥¼ ê°€ì ¸ì˜´
+            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorageì— ì €ì¥ëœ customer_nameì„ ê°€ì ¸ì˜´
+            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorageì— ì €ì¥ëœ customer_pwë¥¼ ê°€ì ¸ì˜´
+            console.log(customer_id);
+            document.getElementById('greeting').innerHTML = customer_name + "ë‹˜ ì•ˆë…•í•˜ì„¸ìš”?";
 
-            document.getElementById('greeting').innerHTML = customer_name + "´Ô ¾È³çÇÏ¼¼¿ä?";
+            var cardLinks = document.getElementsByClassName('card');
+            for (var i = 0; i < cardLinks.length; i++) {
+                var cardLink = cardLinks[i];
+                cardLink.addEventListener('click', function() {
+                    var category = this.getAttribute('data-category'); // ì¹´í…Œê³ ë¦¬ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+                    var url = 'user_search_category.jsp?category_name=' + category + '&customer_id=' + customer_id+'&customer_name='+customer_name; // ì¹´í…Œê³ ë¦¬ ì •ë³´ë¥¼ ë§í¬ì— ì¶”ê°€
+                    location.href = url; // ë§í¬ë¡œ ì´ë™
+                });
+            }
 
 
+        }
+    </script>
+    <script>
+        function submitSearch() {
+            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorageì— ì €ì¥ëœ customer_idë¥¼ ê°€ì ¸ì˜´
+            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorageì— ì €ì¥ëœ customer_nameì„ ê°€ì ¸ì˜´
+            var searchParams = new URLSearchParams(); // URLSearchParams ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ URL ë§¤ê°œë³€ìˆ˜ë¥¼ ê´€ë¦¬
+            searchParams.append('customer_id', customer_id); // customer_idë¥¼ URL ë§¤ê°œë³€ìˆ˜ë¡œ ì¶”ê°€
+            searchParams.append('customer_name', customer_name);
+            searchParams.append('name', document.querySelector('input[name="name"]').value); // ë‹¤ë¥¸ ê²€ìƒ‰ ì¡°ê±´ë„ í•„ìš”í•œ ê²½ìš° ì¶”ê°€
+            searchParams.append('date', document.querySelector('input[name="date"]').value);
+            searchParams.append('time', document.querySelector('input[name="time"]').value);
+            searchParams.append('people', document.querySelector('input[name="people"]').value);
 
+            var url = 'search.jsp?' + searchParams.toString(); // URL ë§¤ê°œë³€ìˆ˜ë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ì—¬ URL ìƒì„±
+            window.location.href = url; // í˜ì´ì§€ ì´ë™
         }
     </script>
 </head>
 
 <body>
-<h1>¿¹¾àÀÇ ¹ÎÁ·</h1>
-<a class="home-button" href="userMain.html">È¨</a>
-<input class="search-box" type="text" placeholder="¸ÀÁıÀ» Ã£¾Æº¸¼¼¿ä!">
-<p class="login-status" id="greeting"></p> <!-- ·Î±×ÀÎ »óÅÂ ¸Ş½ÃÁö -->
-<a class="mypage-button" href="userPage.html">¸¶ÀÌÆäÀÌÁö</a> <!-- ¸¶ÀÌÆäÀÌÁö ¹öÆ° -->
-<a class="logout-button" href="main.html">·Î±×¾Æ¿ô</a> <!-- ·Î±×¾Æ¿ô ¹öÆ° -->
+<h1 onclick="location.href='userMain.html'" >ì˜ˆì•½ì˜ ë¯¼ì¡±</h1>
+
+<p class="login-status" id="greeting"></p> <!-- ë¡œê·¸ì¸ ìƒíƒœ ë©”ì‹œì§€ -->
+<a class="mypage-button" href="userPage.html">ë§ˆì´í˜ì´ì§€</a> <!-- ë§ˆì´í˜ì´ì§€ ë²„íŠ¼ -->
+<a class="logout-button" href="main.html">ë¡œê·¸ì•„ì›ƒ</a> <!-- ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ -->
 
 <div class="reservation">
-    <input type="date">
-    <input type="time">
-    <input type="number" min="1" max="100" placeholder="ÀÎ¿ø ¼ö">
-    <button class="search-button" onclick="location.href='search.html'">°Ë»ö</button>
+    <form method="get">
+        <div class="search-inputs">
+            <input type="text" placeholder="ë§›ì§‘ì„ ì°¾ì•„ë³´ì„¸ìš”!" name="name">
+            <input type="date" name="date">
+            <input type="text" name="time" placeholder="ex) ì˜¤í›„1ì‹œ -> 13">
+            <input type="number" min="1" max="100" placeholder="ì¸ì› ìˆ˜" name="people">
+
+            <button class="search-button" type="button" onclick="submitSearch()">ê²€ìƒ‰</button>
+        </div>
+
+    </form>
 </div>
 
 <div class="line"></div>
 
 <div class="card-container">
-    <a class="card" href="#ÇÑ½Ä">ÇÑ½Ä</a>
-    <a class="card" href="#ÀÏ½Ä">ÀÏ½Ä</a>
-    <a class="card" href="#¾ç½Ä">¾ç½Ä</a>
-    <a class="card" href="#Áß½Ä">Áß½Ä</a>
+    <a class="card" data-category="í•œì‹" >í•œì‹</a>
+    <a class="card" data-category="ì¼ì‹" >ì¼ì‹</a>
+    <a class="card" data-category="ì–‘ì‹" >ì–‘ì‹</a>
+    <a class="card" data-category="ì¤‘ì‹" >ì¤‘ì‹</a>
 </div>
 
 </body>
