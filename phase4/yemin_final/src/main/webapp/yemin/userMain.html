@@ -141,6 +141,11 @@
             var url = 'search.jsp?' + searchParams.toString(); // URL 매개변수를 문자열로 변환하여 URL 생성
             window.location.href = url; // 페이지 이동
         }
+        function goToPage(url) {
+            var customer_id = sessionStorage.getItem('customer_id');
+            var queryString = "?customer_id=" + customer_id;
+            window.location.href = url + queryString;
+        }
     </script>
 </head>
 
@@ -148,7 +153,7 @@
 <h1 onclick="location.href='userMain.html'" >예약의 민족</h1>
 
 <p class="login-status" id="greeting"></p> <!-- 로그인 상태 메시지 -->
-<a class="mypage-button" href="userPage.html">마이페이지</a> <!-- 마이페이지 버튼 -->
+<a class="mypage-button"  onclick="goToPage('userPage.jsp')">마이페이지</a>
 <a class="logout-button" href="main.html">로그아웃</a> <!-- 로그아웃 버튼 -->
 
 <div class="reservation">

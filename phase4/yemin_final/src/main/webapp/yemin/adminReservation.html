@@ -80,10 +80,10 @@
                     cardDiv.className = 'card';
 
                     var reservation_date = document.createElement('p');
-                    reservation_date.textContent = '예약일자: ' + reservation.reservation_date;
+                    reservation_date.textContent = '예약일자: ' + reservation.reservation_date.split(' ')[0];;
 
                     var reservation_time = document.createElement('p');
-                    reservation_time.textContent = '예약시간: ' + reservation.reservation_time;
+                    reservation_time.textContent = '예약시간: ' + reservation.reservation_time+'시 ~'+ (parseInt(reservation.reservation_time)+1) + '시';
 
                     var partysize = document.createElement('p');
                     partysize.textContent = '인원: ' + reservation.party_size;
