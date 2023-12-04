@@ -99,6 +99,8 @@
             var searchResults = SearchResult; // searchResult를 객체로 변환한 결과를 저장합니다.
             var searchResultsDiv = document.getElementById('search-results'); // 출력할 영역의 div 요소를 가져옵니다.
             var rt_id = sessionStorage.getItem('rt_id'); // sessionStorage에 저장된 rt_id를 가져옴
+            var resv_date = sessionStorage.getItem('date'); // sessionStorage에 저장된 resv_date를 가져옴
+            console.log(resv_date);
             console.log(rt_id);
 // searchResults 객체를 순회하며 결과를 출력합니다.
             for (var i = 0; i < searchResults.length; i++) {

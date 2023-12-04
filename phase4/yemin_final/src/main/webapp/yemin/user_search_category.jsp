@@ -26,7 +26,7 @@
 <%
   request.setCharacterEncoding("UTF-8");
   String serverIP = "localhost";
-  String strSID = "orcl";
+  String strSID = "xe";
   String portNum = "1521";
   String user = "y2k";
   String pass = "1234";

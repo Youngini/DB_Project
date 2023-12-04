@@ -10,6 +10,11 @@
             location.href="search.html"+"?customer_id="+customer_id+"&customer_name="+customer_name;
 
         }
+        function sendInfor(resv_date,resv_time,resv_party_size){
+            sessionStorage.setItem("date",resv_date);
+            sessionStorage.setItem("time",resv_time);
+            sessionStorage.setItem("party",resv_party_size);
+        }
 
     </script>
 </head>
@@ -47,6 +52,7 @@
     String date=request.getParameter("date");
     String time=request.getParameter("time");
     String party_size=request.getParameter("people");
+    out.println("<script>sendInfor('"+date+"','"+time+"','"+party_size+"');</script>");
 
     try{
         sql = "SELECT " +
