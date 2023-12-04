@@ -10,12 +10,6 @@
             location.href="search.html"+"?customer_id="+customer_id+"&customer_name="+customer_name;
 
         }
-        function SendResInfo(date,time,party)
-        {
-            sessionStorage.setItem("date",date);
-            sessionStorage.setItem("time",time);
-            sessionStorage.setItem("party",party);
-        }
 
     </script>
 </head>
@@ -48,31 +42,53 @@
 
     String customer_id=request.getParameter("customer_id");
     String customer_name=request.getParameter("customer_name");
-    out.println(customer_name);
 
     String name=request.getParameter("name");
     String date=request.getParameter("date");
     String time=request.getParameter("time");
     String party_size=request.getParameter("people");
-    out.println("<script>SendResInfo('"+date+"','"+time+"','"+party_size+"');</script>");
 
     try{
+        sql = "SELECT " +
+                "a.restaurant_id, " +
+                "a.restaurant_name, " +
+                "NVL(SUM(b.party_size), 0) as party_size, " +
+                "a.total_party_size, " +
+                "a.phone, " +
+                "a.open_time, " +
+                "a.last_order_time, " +
+                "a.restaurant_address " +
+                "FROM " +
+                "restaurant a " +
+                "LEFT JOIN " +
+                "reservation b " +
+                "ON " +
+                "a.restaurant_id = b.rv_restaurant_id " +
+                "AND TO_CHAR(b.reservation_date, 'YYYY-MM-DD') = '"+date+"' " +
+                "AND b.reservation_time = "+time+" " +
+                "AND (b.status = 0 OR b.status = 1) " +
+                "LEFT JOIN " +
+                "menu m " +
+                "ON " +
+                "a.restaurant_id = m.m_restaurant_id " +
+                "WHERE " +
+                "a.restaurant_name LIKE '%"+name+"%' "+
+                "OR " +
+                "m.menu_item_name LIKE '%"+name+"%' " +
+                "GROUP BY " +
+                "a.restaurant_id, " +
+                "a.restaurant_name, " +
+                "a.total_party_size, " +
+                "a.phone, " +
+                "a.open_time, " +
+                "a.last_order_time, " +
+                "a.restaurant_address " +
+                "HAVING " +
+                "a.total_party_size - NVL(SUM(b.party_size), 0) >= "+party_size+" " +
+                "OR " +
+                "SUM(b.party_size) IS NULL";
 
-
-        sql="SELECT t.restaurant_id, t.restaurant_name, t.party_size, t.total_party_size,t.restaurant_address,t.phone,t.open_time,t.last_order_time\n" +
-                "FROM (\n" +
-                "    SELECT a.restaurant_id, a.restaurant_name, sum(b.party_size) as party_size, a.total_party_size,a.restaurant_address,a.phone,a.open_time,a.last_order_time\n" +
-                "    FROM restaurant a, reservation b \n" +
-                "    WHERE a.restaurant_name LIKE '%"+name+"%'\n" +
-                "    AND a.restaurant_id = b.rv_restaurant_id\n" +
-                "    AND b.reservation_date = '"+date+"'\n" +
-                "    AND b.reservation_time = "+time+"\n" +
-                "    AND (b.status = 0 OR b.status = 1)\n" +
-                "    GROUP BY a.restaurant_id, a.restaurant_name, a.total_party_size,a.restaurant_address,a.phone,a.open_time,a.last_order_time\n" +
-                ") t\n" +
-                "WHERE t.total_party_size - t.party_size >= "+party_size+"\n" ;
-        //out.println(sql);
-        rs=stmt.executeQuery(sql);
+        rs = stmt.executeQuery(sql);
         String rt_id;
         String rt_name;
         String rt_party_size;
@@ -93,6 +109,7 @@
             rt_phone=rs.getString("phone");
             rt_open_time=rs.getString("open_time");
             rt_last_order_time=rs.getString("last_order_time");
+            out.println(rt_party_size);
 
             rt_party_size=String.valueOf(Integer.parseInt(rt_total_party_size)-Integer.parseInt(rt_party_size));
 
@@ -110,8 +127,6 @@
 
         }
         sb.deleteCharAt(sb.length()-1);
-
-
 
         sb.append("]");
 
