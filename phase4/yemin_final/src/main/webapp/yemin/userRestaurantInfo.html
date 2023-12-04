@@ -125,8 +125,15 @@
       var restaurantData = JSON.parse(decodedData);
       console.log(restaurantData);
 
-
       document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+
+      // 식당 정보를 웹 페이지에 출력합니다.
+      document.getElementById('restaurant-name').innerHTML = restaurantData.rt_name;
+      document.getElementById('restaurant-address').innerHTML = restaurantData.rt_address;
+      document.getElementById('restaurant-phone').innerHTML = restaurantData.rt_phone;
+      document.getElementById('restaurant-open-time').innerHTML = restaurantData.rt_open_time;
+      document.getElementById('restaurant-last-order-time').innerHTML = restaurantData.rt_last_order_time;
+      document.getElementById('restaurant-reservable-party-size').innerHTML = restaurantData.rt_party_size;
     }
 
     function goToPage(url) {
@@ -153,14 +160,14 @@
 
 <div class="line"></div>
 <div class="reservation-info">
-  <h2>식당 1</h2>
-  <hr> <!-- 여기에 가로선을 추가하였습니다. -->
-  <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
-    <p>식당주소: </p>
-    <p>전화번호: </p>
-    <p>오픈시간: </p>
-    <p>라스트올더시간: </p>
-    <p>예약가능 인원: </p>
+  <h2 id="restaurant-name"></h2>
+  <hr>
+  <div class="info">
+    <p>식당주소: <span id="restaurant-address"></span></p>
+    <p>전화번호: <span id="restaurant-phone"></span></p>
+    <p>오픈시간: <span id="restaurant-open-time"></span></p>
+    <p>라스트올더시간: <span id="restaurant-last-order-time"></span></p>
+    <p>예약가능 인원: <span id="restaurant-reservable-party-size"></span></p>
   </div>
   <button class="cancel-button" onclick="goToPage('userReservation.html')"> 예약 하기</button>
 </div>

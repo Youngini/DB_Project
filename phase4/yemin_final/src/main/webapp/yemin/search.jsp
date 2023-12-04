@@ -50,16 +50,18 @@
     String party_size=request.getParameter("people");
 
     try{
-        sql="SELECT t.restaurant_id, t.restaurant_name, t.party_size, t.total_party_size\n" +
+
+
+        sql="SELECT t.restaurant_id, t.restaurant_name, t.party_size, t.total_party_size,t.restaurant_address,t.phone,t.open_time,t.last_order_time\n" +
                 "FROM (\n" +
-                "    SELECT a.restaurant_id, a.restaurant_name, sum(b.party_size) as party_size, a.total_party_size\n" +
+                "    SELECT a.restaurant_id, a.restaurant_name, sum(b.party_size) as party_size, a.total_party_size,a.restaurant_address,a.phone,a.open_time,a.last_order_time\n" +
                 "    FROM restaurant a, reservation b \n" +
                 "    WHERE a.restaurant_name LIKE '%"+name+"%'\n" +
                 "    AND a.restaurant_id = b.rv_restaurant_id\n" +
                 "    AND b.reservation_date = '"+date+"'\n" +
                 "    AND b.reservation_time = "+time+"\n" +
                 "    AND (b.status = 0 OR b.status = 1)\n" +
-                "    GROUP BY a.restaurant_id, a.restaurant_name, a.total_party_size\n" +
+                "    GROUP BY a.restaurant_id, a.restaurant_name, a.total_party_size,a.restaurant_address,a.phone,a.open_time,a.last_order_time\n" +
                 ") t\n" +
                 "WHERE t.total_party_size - t.party_size >= "+party_size+"\n" ;
         //out.println(sql);
@@ -68,6 +70,11 @@
         String rt_name;
         String rt_party_size;
         String rt_total_party_size;
+        String rt_address;
+        String rt_phone;
+        String rt_open_time;
+        String rt_last_order_time;
+
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         while(rs.next()){
@@ -75,12 +82,24 @@
             rt_name=rs.getString("restaurant_name");
             rt_party_size=rs.getString("party_size");
             rt_total_party_size=rs.getString("total_party_size");
+            rt_address=rs.getString("restaurant_address");
+            rt_phone=rs.getString("phone");
+            rt_open_time=rs.getString("open_time");
+            rt_last_order_time=rs.getString("last_order_time");
+
+            rt_party_size=String.valueOf(Integer.parseInt(rt_total_party_size)-Integer.parseInt(rt_party_size));
+
 
 
             sb.append("{\"rt_id\":\""+rt_id+"\",");
             sb.append("\"rt_name\":\""+rt_name+"\",");
             sb.append("\"rt_party_size\":\""+rt_party_size+"\",");
-            sb.append("\"rt_total_party_size\":\""+rt_total_party_size+"\"},");
+            sb.append("\"rt_total_party_size\":\""+rt_total_party_size+"\",");
+            sb.append("\"rt_address\":\""+rt_address+"\",");
+            sb.append("\"rt_phone\":\""+rt_phone+"\",");
+            sb.append("\"rt_open_time\":\""+rt_open_time+"\",");
+            sb.append("\"rt_last_order_time\":\""+rt_last_order_time+"\"},");
+
 
         }
         sb.deleteCharAt(sb.length()-1);
