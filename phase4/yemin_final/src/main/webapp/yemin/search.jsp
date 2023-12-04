@@ -10,6 +10,12 @@
             location.href="search.html"+"?customer_id="+customer_id+"&customer_name="+customer_name;
 
         }
+        function SendResInfo(date,time,party)
+        {
+            sessionStorage.setItem("date",date);
+            sessionStorage.setItem("time",time);
+            sessionStorage.setItem("party",party);
+        }
 
     </script>
 </head>
@@ -48,6 +54,7 @@
     String date=request.getParameter("date");
     String time=request.getParameter("time");
     String party_size=request.getParameter("people");
+    out.println("<script>SendResInfo('"+date+"','"+time+"','"+party_size+"');</script>");
 
     try{
 
@@ -103,6 +110,8 @@
 
         }
         sb.deleteCharAt(sb.length()-1);
+
+
 
         sb.append("]");
 

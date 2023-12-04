@@ -108,13 +108,25 @@
     </style>
     <script>
         window.onload = function() {
-            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage에 저장된 customer_id를 가져옴
-            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage에 저장된 customer_name을 가져옴
-            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage에 저장된 customer_pw를 가져옴
+            var customer_id = sessionStorage.getItem('customer_id');
+            var customer_name = sessionStorage.getItem('customer_name');
+            var customer_pw = sessionStorage.getItem('customer_pw');
+            var reservation_id = sessionStorage.getItem('reservation_id');
+            var reservation_date = sessionStorage.getItem('reservation_date');
+            reservation_date= reservation_date.split(' ')[0];
+            var reservation_time = sessionStorage.getItem('reservation_time');
+            var status = sessionStorage.getItem('status');
+            var restaurant_name = sessionStorage.getItem('restaurant_name');
+            var restaurant_address = sessionStorage.getItem('restaurant_address');
 
             document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
+            document.getElementById('reservationDate').textContent = reservation_date+ " " + reservation_time+'시 ~'+ (parseInt(reservation_time)+1) + '시';
+            document.getElementById('restaurantName').textContent = restaurant_name;
+            document.getElementById('restaurantAddress').textContent = restaurant_address;
+            document.getElementById('customerName').textContent = customer_name;
+            document.getElementById('status').textContent = status;
+        };
 
-        }
         function cancelReservation() {
             if (confirm("예약을 취소하시겠습니까?")) {
                 // 예를 선택했을 때
@@ -144,13 +156,14 @@
 <div class="reservation-info">
     <h2>예약 내역</h2>
     <hr> <!-- 여기에 가로선을 추가하였습니다. -->
-    <div class="info"> <!-- 여기에 새로운 div 태그를 추가하였습니다. -->
-        <p>예약일시: </p>
-        <p>식당이름: </p>
-        <p>식당주소: </p>
-        <p>예약자이름: </p>
-        <p>예약상태: </p>
+    <div class="info">
+        <p>예약일시: <span id="reservationDate"></span></p>
+        <p>식당이름: <span id="restaurantName"></span></p>
+        <p>식당주소: <span id="restaurantAddress"></span></p>
+        <p>예약자이름: <span id="customerName"></span></p>
+        <p>예약상태: <span id="status"></span></p>
     </div>
+
     <button class="cancel-button" onclick="cancelReservation()"> 예약 취소</button>
 </div>
 </body>

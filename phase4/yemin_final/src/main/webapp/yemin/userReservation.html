@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="EUC-KR">
-  <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+  <meta charset="UTF-8">
+  <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
   <style>
     h1 {
       text-align: center;
@@ -83,12 +83,12 @@
       padding-right: 100px;
       padding-bottom: 30px;
       margin-top: 50px;
-      margin-left: 200px; /* ¿ŞÂÊ ¸¶Áø Ãß°¡ */
-      margin-right: 300px; /* ¿À¸¥ÂÊ ¸¶Áø Ãß°¡ */
+      margin-left: 200px; /* ì™¼ìª½ ë§ˆì§„ ì¶”ê°€ */
+      margin-right: 300px; /* ì˜¤ë¥¸ìª½ ë§ˆì§„ ì¶”ê°€ */
       margin-bottom: 50px;
       border: 1px solid lightgrey;
-      background-color: #f0f0f0; /* ¹è°æ»öÀ» È¸»öÀ¸·Î ¼³Á¤ */
-      text-align: center; /* ÅØ½ºÆ®¸¦ Áß°£ Á¤·Ä */
+      background-color: #f0f0f0; /* ë°°ê²½ìƒ‰ì„ íšŒìƒ‰ìœ¼ë¡œ ì„¤ì • */
+      text-align: center; /* í…ìŠ¤íŠ¸ë¥¼ ì¤‘ê°„ ì •ë ¬ */
     }
 
     .info {
@@ -107,48 +107,78 @@
 
   </style>
   <script>
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+              results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
     window.onload = function() {
-      var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage¿¡ ÀúÀåµÈ customer_id¸¦ °¡Á®¿È
-      var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage¿¡ ÀúÀåµÈ customer_nameÀ» °¡Á®¿È
-      var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage¿¡ ÀúÀåµÈ customer_pw¸¦ °¡Á®¿È
+      var customer_id = sessionStorage.getItem('customer_id'); // sessionStorageì— ì €ì¥ëœ customer_idë¥¼ ê°€ì ¸ì˜´
+      var customer_name = sessionStorage.getItem('customer_name'); // sessionStorageì— ì €ì¥ëœ customer_nameì„ ê°€ì ¸ì˜´
+      var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorageì— ì €ì¥ëœ customer_pwë¥¼ ê°€ì ¸ì˜´
+      var resv_date= sessionStorage.getItem('date'); // sessionStorageì— ì €ì¥ëœ resv_dateë¥¼ ê°€ì ¸ì˜´
+      var resv_time = sessionStorage.getItem('time'); // sessionStorageì— ì €ì¥ëœ resv_timeì„ ê°€ì ¸ì˜´
+      var resv_party_size = sessionStorage.getItem('party'); // sessionStorageì— ì €ì¥ëœ resv_party_sizeë¥¼ ê°€ì ¸ì˜´
+      var encodedData = getParameterByName('restaurant_data');
+      var decodedData = decodeURIComponent(encodedData);
+      var restaurantData = JSON.parse(decodedData);
+      console.log(restaurantData);
+      //var restaurantData = JSON.parse(sessionStorage.getItem('restaurantData')); // sessionStorageì— ì €ì¥ëœ restaurantDataë¥¼ ê°€ì ¸ì˜´
+      console.log(customer_id);
+      document.getElementById('greeting').innerHTML = customer_name + "ë‹˜ ì•ˆë…•í•˜ì„¸ìš”?";
 
-      document.getElementById('greeting').innerHTML = customer_name + "´Ô ¾È³çÇÏ¼¼¿ä?";
+      // ì˜ˆì•½ ì •ë³´ë¥¼ ì›¹ í˜ì´ì§€ì— ì¶œë ¥í•©ë‹ˆë‹¤.
+      document.getElementById('restaurant-name').innerHTML = restaurantData.rt_name;
+      document.getElementById('reservation-date').innerHTML = resv_date;
+      document.getElementById('reservation-time').innerHTML = resv_time + 'ì‹œ ~'+ (parseInt(resv_time)+1) + 'ì‹œ';
+      document.getElementById('reservation-party-size').innerHTML = resv_party_size;
+      document.getElementById('customer-name').innerHTML = customer_name;
     }
 
     function goToPage(url) {
-      window.location.href = url;
+      // ì‹ë‹¹ ì´ë¦„, ì˜ˆì•½ ì¼ì‹œ, ì˜ˆì•½ ì¸ì›, ì˜ˆì•½ì ì´ë¦„, ì˜ˆì•½ì ì „í™”ë²ˆí˜¸ ì •ë³´ë¥¼ ê°€ì§€ê³  userOrder.htmlë¡œ ë„˜ì–´ê°‘ë‹ˆë‹¤.
+      var encodedData = getParameterByName('restaurant_data');
+      var decodedData = decodeURIComponent(encodedData);
+      var restaurantData = JSON.parse(decodedData);
+      var customer_name = sessionStorage.getItem('customer_name');
+      var customer_id = sessionStorage.getItem('customer_id');
+      var queryString = "?rt_name=" + restaurantData.rt_name +"&rt_id="+restaurantData.rt_id+ "&date=" + restaurantData.date + "&time=" + restaurantData.time + "&party_size=" + restaurantData.party_size + "&customer_name=" + customer_name + "&customer_id=" + customer_id;
+      window.location.href = url + queryString;
     }
 
   </script>
 </head>
 
 <body>
-<h1>¿¹¾àÀÇ ¹ÎÁ·</h1>
-<a class="home-button" href="userMain.html">È¨</a>
-<input class="search-box" type="text" placeholder="¸ÀÁıÀ» Ã£¾Æº¸¼¼¿ä!">
+<h1>ì˜ˆì•½ì˜ ë¯¼ì¡±</h1>
+<a class="home-button" href="userMain.html">í™ˆ</a>
+<input class="search-box" type="text" placeholder="ë§›ì§‘ì„ ì°¾ì•„ë³´ì„¸ìš”!">
 <p class="login-status" id="greeting"></p>
-<a class="mypage-button" href="userPage.html">¸¶ÀÌÆäÀÌÁö</a>
-<a class="logout-button" href="main.html">·Î±×¾Æ¿ô</a>
+<a class="mypage-button" href="userPage.html">ë§ˆì´í˜ì´ì§€</a>
+<a class="logout-button" href="main.html">ë¡œê·¸ì•„ì›ƒ</a>
 
 <div class="reservation">
   <input type="date">
   <input type="time">
-  <input type="number" min="1" max="100" placeholder="ÀÎ¿ø ¼ö">
-  <button class="search-button" onclick="location.href='search.html'">°Ë»ö</button>
+  <input type="number" min="1" max="100" placeholder="ì¸ì› ìˆ˜">
+  <button class="search-button" onclick="location.href='search.html'">ê²€ìƒ‰</button>
 </div>
 
 <div class="line"></div>
 <div class="reservation-info">
-  <h2>ÁÖ¹®</h2>
-  <hr> <!-- ¿©±â¿¡ °¡·Î¼±À» Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-  <div class="info"> <!-- ¿©±â¿¡ »õ·Î¿î div ÅÂ±×¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-    <p>½Ä´ç ÀÌ¸§: </p>
-    <p>¿¹¾à ÀÏ½Ã: </p>
-    <p>¿¹¾à ÀÎ¿ø: </p>
-    <p>¿¹¾àÀÚ ÀÌ¸§: </p>
-    <p>¿¹¾àÀÚ ÀüÈ­¹øÈ£: </p>
+  <h2>ì£¼ë¬¸</h2>
+  <hr>
+  <div class="info">
+    <p>ì‹ë‹¹ ì´ë¦„: <span id="restaurant-name"></span></p>
+    <p>ì˜ˆì•½ ì¼ì‹œ: <span id="reservation-date"></span> <span id="reservation-time"></span></p>
+    <p>ì˜ˆì•½ ì¸ì›: <span id="reservation-party-size"></span></p>
+    <p>ì˜ˆì•½ì ì´ë¦„: <span id="customer-name"></span></p>
   </div>
-  <button class="cancel-button" onclick="goToPage('userOrder.html')"> ´ÙÀ½</button>
+  <button class="cancel-button" onclick="goToPage('userOrder.jsp')"> ë‹¤ìŒ</button>
 </div>
 </body>
 </html>

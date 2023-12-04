@@ -123,7 +123,11 @@
       var encodedData = getParameterByName('restaurant_data');
       var decodedData = decodeURIComponent(encodedData);
       var restaurantData = JSON.parse(decodedData);
+      var rt_id = sessionStorage.getItem('rt_id');
       console.log(restaurantData);
+
+      console.log(rt_id);
+
 
       document.getElementById('greeting').innerHTML = customer_name + "님 안녕하세요?";
 
@@ -137,7 +141,12 @@
     }
 
     function goToPage(url) {
-      window.location.href = url;
+      var encodedData = getParameterByName('restaurant_data');
+      var decodedData = decodeURIComponent(encodedData);
+      var restaurantData = JSON.parse(decodedData);
+      encodedData = encodeURIComponent(JSON.stringify(restaurantData));
+      window.location.href = 'userReservation.html?restaurant_data=' + encodedData;
+
     }
 
   </script>
@@ -169,7 +178,7 @@
     <p>라스트올더시간: <span id="restaurant-last-order-time"></span></p>
     <p>예약가능 인원: <span id="restaurant-reservable-party-size"></span></p>
   </div>
-  <button class="cancel-button" onclick="goToPage('userReservation.html')"> 예약 하기</button>
+  <button class="cancel-button" onclick="goToPage()"> 예약 하기</button>
 </div>
 </body>
 </html>

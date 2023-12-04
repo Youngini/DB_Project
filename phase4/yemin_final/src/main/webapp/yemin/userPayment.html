@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
-    <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+    <meta charset="UTF-8">
+    <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
     <style>
         h1 {
             text-align: center;
@@ -71,11 +71,39 @@
             background-color: dodgerblue;
         }
 
+        /* ìˆ˜ì •ëœ ë¶€ë¶„ ì‹œì‘ */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            width: 150px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .card:hover {
+            cursor: pointer;
+        }
+
         .line {
             height: 2px;
             background-color: lightblue;
             margin-top: 40px;
         }
+        /* ìˆ˜ì •ëœ ë¶€ë¶„ ë */
 
         .reservation-info {
             padding-top: 20px;
@@ -83,12 +111,12 @@
             padding-right: 100px;
             padding-bottom: 30px;
             margin-top: 50px;
-            margin-left: 200px; /* ¿ŞÂÊ ¸¶Áø Ãß°¡ */
-            margin-right: 300px; /* ¿À¸¥ÂÊ ¸¶Áø Ãß°¡ */
+            margin-left: 200px; /* ì™¼ìª½ ë§ˆì§„ ì¶”ê°€ */
+            margin-right: 300px; /* ì˜¤ë¥¸ìª½ ë§ˆì§„ ì¶”ê°€ */
             margin-bottom: 50px;
             border: 1px solid lightgrey;
-            background-color: #f0f0f0; /* ¹è°æ»öÀ» È¸»öÀ¸·Î ¼³Á¤ */
-            text-align: center; /* ÅØ½ºÆ®¸¦ Áß°£ Á¤·Ä */
+            background-color: #f0f0f0; /* ë°°ê²½ìƒ‰ì„ íšŒìƒ‰ìœ¼ë¡œ ì„¤ì • */
+            text-align: center; /* í…ìŠ¤íŠ¸ë¥¼ ì¤‘ê°„ ì •ë ¬ */
         }
 
         .info {
@@ -114,60 +142,113 @@
     </style>
     <script>
         window.onload = function() {
-            var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage¿¡ ÀúÀåµÈ customer_id¸¦ °¡Á®¿È
-            var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage¿¡ ÀúÀåµÈ customer_nameÀ» °¡Á®¿È
-            var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage¿¡ ÀúÀåµÈ customer_pw¸¦ °¡Á®¿È
+            var customer_id = sessionStorage.getItem('customer_id');
+            var customer_name = sessionStorage.getItem('customer_name');
+            var customer_pw = sessionStorage.getItem('customer_pw');
+            var resv_date= sessionStorage.getItem('date');
+            var resv_time = sessionStorage.getItem('time');
+            var resv_party_size = sessionStorage.getItem('party');
+            var rt_name = sessionStorage.getItem('rt_name');
+            var rt_id= sessionStorage.getItem('rt_id');
+            var selectedMenus = JSON.parse(sessionStorage.getItem('selectedMenus'));
 
-            document.getElementById('greeting').innerHTML = customer_name + "´Ô ¾È³çÇÏ¼¼¿ä?";
+            document.getElementById('greeting').innerHTML = customer_name + "ë‹˜ ì•ˆë…•í•˜ì„¸ìš”?";
+            document.getElementById('restaurant-name').textContent = rt_name;
+            document.getElementById('reservation-date-time').textContent = resv_date + " " + resv_time+'ì‹œ ~'+ (parseInt(resv_time)+1) + 'ì‹œ';
+            document.getElementById('reservation-people').textContent = resv_party_size;
+            document.getElementById('reserver-name').textContent = customer_name;
+
+            var orderDetails = document.getElementById('order-details');
+            var reservationFee = 0;
+            var menuOrder = '';
+
+            for (var i = 0; i < selectedMenus.length; i++) {
+                var menuName = selectedMenus[i].menu_name;
+                var menuPrice = selectedMenus[i].price;
+                var menuCount = selectedMenus[i].count;
+
+                var menuTotalPrice = menuPrice * menuCount;
+
+                menuOrder += menuName + " " + menuPrice + "ì› x " + menuCount + "ê°œ = " + menuTotalPrice + "ì›\n";
+
+                reservationFee += menuTotalPrice;
+            }
+            reservationFee= reservationFee * 0.3;
+
+            orderDetails.textContent = menuOrder;
+            document.getElementById('reservation-fee').textContent ="ì£¼ë¬¸ë‚´ì—­ì˜ 30% : " + reservationFee + "ì›";
+            var totalCharge = reservationFee;
+            document.getElementById('total-charge').textContent = totalCharge;
         }
-
         function goToPage(url) {
-            window.location.href = url;
+            var customer_id = sessionStorage.getItem('customer_id');
+            var rt_id = sessionStorage.getItem('rt_id');
+            var resv_date= sessionStorage.getItem('date');
+            var resv_time = sessionStorage.getItem('time');
+            var resv_party_size = sessionStorage.getItem('party');
+            var queryString = "?rt_id=" + rt_id + "&date=" + resv_date + "&time=" + resv_time + "&party_size=" + resv_party_size + "&customer_id=" + customer_id;
+
+
+            window.location.href = url + queryString;
         }
 
     </script>
 </head>
 
+
+
+
 <body>
-<h1>¿¹¾àÀÇ ¹ÎÁ·</h1>
-<a class="home-button" href="userMain.html">È¨</a>
-<input class="search-box" type="text" placeholder="¸ÀÁıÀ» Ã£¾Æº¸¼¼¿ä!">
-<p class="login-status" id="greeting"></p>
-<a class="mypage-button" href="userPage.html">¸¶ÀÌÆäÀÌÁö</a>
-<a class="logout-button" href="main.html">·Î±×¾Æ¿ô</a>
+<h1 onclick="location.href='userMain.html'" >ì˜ˆì•½ì˜ ë¯¼ì¡±</h1>
+
+<p class="login-status" id="greeting"></p> <!-- ë¡œê·¸ì¸ ìƒíƒœ ë©”ì‹œì§€ -->
+<a class="mypage-button" href="userPage.html">ë§ˆì´í˜ì´ì§€</a> <!-- ë§ˆì´í˜ì´ì§€ ë²„íŠ¼ -->
+<a class="logout-button" href="main.html">ë¡œê·¸ì•„ì›ƒ</a> <!-- ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ -->
 
 <div class="reservation">
-    <input type="date">
-    <input type="time">
-    <input type="number" min="1" max="100" placeholder="ÀÎ¿ø ¼ö">
-    <button class="search-button" onclick="location.href='search.html'">°Ë»ö</button>
+    <form method="get">
+        <div class="search-inputs">
+            <input type="text" placeholder="ë§›ì§‘ì„ ì°¾ì•„ë³´ì„¸ìš”!" name="name">
+            <input type="date" name="date">
+            <input type="text" name="time" placeholder="ex) ì˜¤í›„1ì‹œ -> 13">
+            <input type="number" min="1" max="100" placeholder="ì¸ì› ìˆ˜" name="people">
+
+            <button class="search-button" type="button" onclick="submitSearch()">ê²€ìƒ‰</button>
+        </div>
+
+    </form>
 </div>
 
 <div class="line"></div>
+
+
 <div class="reservation-info">
-    <h2>°áÁ¦</h2>
-    <hr> <!-- ¿©±â¿¡ °¡·Î¼±À» Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-    <div class="info"> <!-- ¿©±â¿¡ »õ·Î¿î div ÅÂ±×¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-        <p>½Ä´ç ÀÌ¸§: </p>
-        <p>¿¹¾à ÀÏ½Ã: </p>
-        <p>¿¹¾à ÀÎ¿ø: </p>
-        <p>¿¹¾àÀÚ ÀÌ¸§: </p>
-        <p>¿¹¾àÀÚ ÀüÈ­¹øÈ£: </p>
-        <p>ÁÖ¹® ³»¿ª: </p>
-    </div>
+        <h2>ê²°ì œ</h2>
+        <hr>
+        <div class="info">
+            <p>ì‹ë‹¹ ì´ë¦„: <span id="restaurant-name"></span></p>
+            <p>ì˜ˆì•½ ì¼ì‹œ: <span id="reservation-date-time"></span></p>
+            <p>ì˜ˆì•½ ì¸ì›: <span id="reservation-people"></span></p>
+            <p>ì˜ˆì•½ì ì´ë¦„: <span id="reserver-name"></span></p>
+            <p>ì£¼ë¬¸ ë‚´ì—­: <span id="order-details"></span></p>
+        </div>
 
-    <div class="payment"> <!-- ¿©±â¿¡ »õ·Î¿î div ÅÂ±×¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-        <p>Ã»±¸ ³»¿ª: </p>
-        <p>¿¹¾àºñ: </p>
-        <p>¸Ş´º ÁÖºĞ: </p>
-        <p>ÃÑ Ã»±¸ ±İ¾×: </p>
-        <p>¹«ÅëÀå ÀÔ±İ: </p>
-        <p>¿¹±İÁÖ: </p>
-        <p>°èÁÂ¹øÈ£: </p>
+        <div class="payment">
+            <p>ì˜ˆì•½ë¹„: <span id="reservation-fee"></span></p>
+            <p>ì´ ì²­êµ¬ ê¸ˆì•¡: <span id="total-charge"></span></p>
+            <p>ê²°ì œ ë°©ì‹:
+                <select id="payment-method" name="payment-method">
+                    <option value="bank">ë¬´í†µì¥ ì…ê¸ˆ</option>
+                    <option value="kakao">ì¹´ì¹´ì˜¤í˜ì´</option>
+                    <option value="toss">í† ìŠ¤í˜ì´</option>
+                    <option value="naver">ë„¤ì´ë²„í˜ì´</option>
+                </select>
+            </p>
+            <p>ì˜ˆê¸ˆì£¼: ì˜ˆì•½ì˜ ë¯¼ì¡±</p>
+            <p>ê³„ì¢Œë²ˆí˜¸: 123-45-6789-10</p>
+        </div>
 
-    </div>
-
-    <button class="cancel-button" onclick="goToPage('userPage.html')"> ´ÙÀ½</button>
+        <button class="cancel-button" onclick="goToPage('addReservePay.jsp')"> ê²°ì œí•˜ê¸°</button>
 </div>
 </body>
 </html>

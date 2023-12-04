@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="EUC-KR">
-  <title>¿¹¾àÀÇ ¹ÎÁ·</title>
+  <meta charset="UTF-8">
+  <title>ì˜ˆì•½ì˜ ë¯¼ì¡±</title>
   <style>
     h1 {
       text-align: center;
@@ -83,12 +83,12 @@
       padding-right: 100px;
       padding-bottom: 30px;
       margin-top: 50px;
-      margin-left: 200px; /* ¿ŞÂÊ ¸¶Áø Ãß°¡ */
-      margin-right: 300px; /* ¿À¸¥ÂÊ ¸¶Áø Ãß°¡ */
+      margin-left: 200px; /* ì™¼ìª½ ë§ˆì§„ ì¶”ê°€ */
+      margin-right: 300px; /* ì˜¤ë¥¸ìª½ ë§ˆì§„ ì¶”ê°€ */
       margin-bottom: 50px;
       border: 1px solid lightgrey;
-      background-color: #f0f0f0; /* ¹è°æ»öÀ» È¸»öÀ¸·Î ¼³Á¤ */
-      text-align: left; /* ÅØ½ºÆ®¸¦ ¿ŞÂÊ Á¤·Ä·Î º¯°æ */
+      background-color: #f0f0f0; /* ë°°ê²½ìƒ‰ì„ íšŒìƒ‰ìœ¼ë¡œ ì„¤ì • */
+      text-align: left; /* í…ìŠ¤íŠ¸ë¥¼ ì™¼ìª½ ì •ë ¬ë¡œ ë³€ê²½ */
     }
 
     .info {
@@ -115,73 +115,124 @@
 
   </style>
   <script>
-    window.onload = function() {
-      var customer_id = sessionStorage.getItem('customer_id'); // sessionStorage¿¡ ÀúÀåµÈ customer_id¸¦ °¡Á®¿È
-      var customer_name = sessionStorage.getItem('customer_name'); // sessionStorage¿¡ ÀúÀåµÈ customer_nameÀ» °¡Á®¿È
-      var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorage¿¡ ÀúÀåµÈ customer_pw¸¦ °¡Á®¿È
+    var selectedMenus = []; // ì„ íƒí•œ ë©”ë‰´ë¥¼ ì €ì¥í•  ë°°ì—´
 
-      document.getElementById('greeting').innerHTML = customer_name + "´Ô ¾È³çÇÏ¼¼¿ä?";
+    function addToSelectedMenus(menu_id, menu_name, price, count) {
+      var selectedMenu = {
+        menu_id: menu_id,
+        menu_name: menu_name,
+        price: price,
+        count: count
+      };
+      selectedMenus.push(selectedMenu);
     }
+    function displayMenu(menu_id,menu_name, price) {
+      var menuDiv = document.createElement("div"); // ìƒˆë¡œìš´ div ìš”ì†Œ ìƒì„±
+      menuDiv.classList.add("menu-item"); // í´ë˜ìŠ¤ ì´ë¦„ "menu-item" ì¶”ê°€
+
+      var menuName = document.createElement("p"); // ìƒˆë¡œìš´ p ìš”ì†Œ ìƒì„±
+      menuName.classList.add("menu-name"); // í´ë˜ìŠ¤ ì´ë¦„ "menu-name" ì¶”ê°€
+      menuName.innerHTML = menu_name; // ë©”ë‰´ ì´ë¦„ ì„¤ì •
+
+      var menuPrice = document.createElement("p"); // ìƒˆë¡œìš´ p ìš”ì†Œ ìƒì„±
+      menuPrice.classList.add("menu-price"); // í´ë˜ìŠ¤ ì´ë¦„ "menu-price" ì¶”ê°€
+      menuPrice.innerHTML = price; // ê°€ê²© ì„¤ì •
+
+      var menuCountInput = document.createElement("input"); // ìƒˆë¡œìš´ input ìš”ì†Œ ìƒì„±
+      menuCountInput.classList.add("menu-count"); // í´ë˜ìŠ¤ ì´ë¦„ "menu-count" ì¶”ê°€
+      menuCountInput.type = "number"; // ì…ë ¥ íƒ€ì…ì„ ìˆ«ìë¡œ ì„¤ì •
+      menuCountInput.min = "0"; // ìµœì†Œê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
+      menuCountInput.value = "0"; // ì´ˆê¸°ê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
+
+      menuDiv.appendChild(menuName); // ë©”ë‰´ ì´ë¦„ì„ menu-item divì— ì¶”ê°€
+      menuDiv.appendChild(menuPrice); // ë©”ë‰´ ê°€ê²©ì„ menu-item divì— ì¶”ê°€
+      menuDiv.appendChild(menuCountInput); // ë©”ë‰´ ê°¯ìˆ˜ ì…ë ¥ ì¹¸ì„ menu-item divì— ì¶”ê°€
+
+      var menuContainer = document.querySelector(".menu"); // menu í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ìš”ì†Œë¥¼ ì°¾ìŒ
+      menuContainer.appendChild(menuDiv); // menu-item divë¥¼ menu í´ë˜ìŠ¤ ìš”ì†Œì— ì¶”ê°€
+
+      menuCountInput.addEventListener('change', function() {
+        var count = parseInt(this.value);
+        addToSelectedMenus(menu_id, menu_name, price, count);
+      });
+    }
+
+    window.onload = function() {
+      var customer_id = sessionStorage.getItem('customer_id'); // sessionStorageì— ì €ì¥ëœ customer_idë¥¼ ê°€ì ¸ì˜´
+      var customer_name = sessionStorage.getItem('customer_name'); // sessionStorageì— ì €ì¥ëœ customer_nameì„ ê°€ì ¸ì˜´
+      var customer_pw = sessionStorage.getItem('customer_pw'); // sessionStorageì— ì €ì¥ëœ customer_pwë¥¼ ê°€ì ¸ì˜´
+      var rt_id = sessionStorage.getItem('rt_id');
+
+      document.getElementById('greeting').innerHTML = customer_name + "ë‹˜ ì•ˆë…•í•˜ì„¸ìš”?";
+
+     var menus=sessionStorage.getItem('menus');
+     menus=JSON.parse(menus);
+     console.log(menus);
+
+      for (var i = 0; i < menus.length; i++) {
+        var menu_id = menus[i].menu_id;
+        var menu_name = menus[i].menu_name;
+        var price = menus[i].price;
+
+        displayMenu(menu_id,menu_name, price);
+
+      }
+      //displayMenu(menu_name, price); // ë©”ë‰´ ì´ë¦„ê³¼ ê°€ê²©ì„ í™”ë©´ì— ì¶œë ¥
+    }
+
+
 
     function goToPage(url) {
+      sessionStorage.setItem('selectedMenus', JSON.stringify(selectedMenus)); // ì„ íƒí•œ ë©”ë‰´ ì •ë³´ë¥¼ sessionStorageì— ì €ì¥
       window.location.href = url;
-    }
 
+    }
   </script>
 </head>
 
 <body>
-<h1>¿¹¾àÀÇ ¹ÎÁ·</h1>
-<a class="home-button" href="userMain.html">È¨</a>
-<input class="search-box" type="text" placeholder="¸ÀÁıÀ» Ã£¾Æº¸¼¼¿ä!">
+<h1>ì˜ˆì•½ì˜ ë¯¼ì¡±</h1>
+<a class="home-button" href="userMain.html">í™ˆ</a>
+<input class="search-box" type="text" placeholder="ë§›ì§‘ì„ ì°¾ì•„ë³´ì„¸ìš”!">
 <p class="login-status" id="greeting"></p>
-<a class="mypage-button" href="userPage.html">¸¶ÀÌÆäÀÌÁö</a>
-<a class="logout-button" href="main.html">·Î±×¾Æ¿ô</a>
+<a class="mypage-button" href="userPage.html">ë§ˆì´í˜ì´ì§€</a>
+<a class="logout-button" href="main.html">ë¡œê·¸ì•„ì›ƒ</a>
 
 <div class="reservation">
   <input type="date">
   <input type="time">
-  <input type="number" min="1" max="100" placeholder="ÀÎ¿ø ¼ö">
-  <button class="search-button" onclick="location.href='search.html'">°Ë»ö</button>
+  <input type="number" min="1" max="100" placeholder="ì¸ì› ìˆ˜">
+  <button class="search-button" onclick="location.href='search.html'">ê²€ìƒ‰</button>
 </div>
 
 <div class="line"></div>
 <div class="reservation-info">
   <div class="order-title">
-    <h2>ÁÖ¹®</h2>
+    <h2>ì£¼ë¬¸</h2>
   </div>
-  <hr> <!-- ¿©±â¿¡ °¡·Î¼±À» Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
-  <div class="info"> <!-- ¿©±â¿¡ »õ·Î¿î div ÅÂ±×¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù. -->
+  <hr> <!-- ì—¬ê¸°ì— ê°€ë¡œì„ ì„ ì¶”ê°€í•˜ì˜€ìŠµë‹ˆë‹¤. -->
+  <div class="info"> <!-- ì—¬ê¸°ì— ìƒˆë¡œìš´ div íƒœê·¸ë¥¼ ì¶”ê°€í•˜ì˜€ìŠµë‹ˆë‹¤. -->
     <div>
       <input type="radio" id="preorder" name="orderType" value="preorder">
-      <label for="preorder">¹Ì¸® ÁÖ¹®ÇÏ±â</label>
+      <label for="preorder">ë¯¸ë¦¬ ì£¼ë¬¸í•˜ê¸°</label>
     </div>
     <div>
       <input type="radio" id="orderOnSpot" name="orderType" value="orderOnSpot">
-      <label for="orderOnSpot">°¡¼­ ÁÖ¹®ÇÏ±â</label>
+      <label for="orderOnSpot">ê°€ì„œ ì£¼ë¬¸í•˜ê¸°</label>
     </div>
   </div>
   <div class="menu">
-    <h3>¸Ş´º</h3>
-    <div class="menu-item">
-      <span> ¸Ş´º ÀÌ¸§  </span>
-      <span> °¡°İ  </span>
-      <span> ÁÖ¹« ¼ö·®  </span>
-    </div>
-    <div class="menu-item">
-      <span> µ·±î½º </span>
-      <span> 9500  </span>
-      <input type="number" min="0" placeholder="ÁÖ¹® ¼ö·®">
-    </div>
-    <!-- À§ÀÇ .menu-item div¸¦ ¸Ş´º °³¼ö¸¸Å­ º¹»çÇÏ¿© »ç¿ëÇÏ½Ã¸é µË´Ï´Ù. -->
+    <h3>ë©”ë‰´</h3>
+    <!-- ë©”ë‰´ ì •ë³´ëŠ” ì—¬ê¸°ì— ìë™ìœ¼ë¡œ ì¶”ê°€ë©ë‹ˆë‹¤ -->
   </div>
   <div class="requests">
-    <h3>¿äÃ»»çÇ×</h3>
-    <textarea rows="4" cols="50" placeholder="¿äÃ»»çÇ×À» ÀÔ·ÂÇÏ¼¼¿ä."></textarea>
+    <h3>ìš”ì²­ì‚¬í•­</h3>
+    <textarea rows="4" cols="50" placeholder="ìš”ì²­ì‚¬í•­ì„ ì…ë ¥í•˜ì„¸ìš”."></textarea>
   </div>
   <div class="button-wrapper">
-    <button class="cancel-button" onclick="goToPage('userPayment.html')"> ´ÙÀ½</button>
+    <button class="cancel-button" onclick="goToPage('userPayment.html')"> ë‹¤ìŒ</button>
   </div>
 </div>
 </body>
 </html>
+
