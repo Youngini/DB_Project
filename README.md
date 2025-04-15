@@ -6,3 +6,6 @@ Y2k 지금 만나보세요.
 
 ### 노션 링크
 https://deadpan-bandicoot-d47.notion.site/8ab6040ffd9a45b7aa26686a7a0076fd
+
+###데모 영상
+https://www.youtube.com/watch?v=Zp1J52CDwpo
